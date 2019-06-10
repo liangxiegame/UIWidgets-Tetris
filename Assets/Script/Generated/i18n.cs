@@ -1,19 +1,20 @@
 using System.Collections.Generic;
 using RSG;
 using Unity.UIWidgets.foundation;
+using Unity.UIWidgets.material;
 using Unity.UIWidgets.ui;
 using Unity.UIWidgets.widgets;
 
 namespace TerisGame
 {
-    public class S : WidgetsLocalizations
+    public class S : DefaultMaterialLocalizations
     {
         public static GeneratedLocalizationsDelegate Delegate = new GeneratedLocalizationsDelegate();
 
 
         public static S of(BuildContext context)
         {
-            return Localizations.of<S>(context, typeof(S));
+            return Localizations.of<S>(context, typeof(MaterialLocalizations));
         }
 
         public virtual string Cleans      => "Cleans";
@@ -41,8 +42,9 @@ namespace TerisGame
         public override string Cleans      => "消除";
         public override string Points      => "分数";
     }
-
-    public class GeneratedLocalizationsDelegate : LocalizationsDelegate<S>
+    
+    
+    public class GeneratedLocalizationsDelegate : LocalizationsDelegate<MaterialLocalizations>
     {
         public List<Locale> SupportedLocales =>
             new List<Locale>()

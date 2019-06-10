@@ -210,7 +210,7 @@ namespace TerisGame
             return true;
         }
 
-        int? Get(int x, int y)
+        public int? Get(int x, int y)
         {
             x -= XY[0];
             y -= XY[1];
@@ -228,7 +228,7 @@ namespace TerisGame
             return new Block(type, shape, START_XY[type], 0);
         }
 
-        static Block GetRandom()
+        public static Block GetRandom()
         {
             var i = Random.Range(0, 7);
             return FromType((BlockType) i);

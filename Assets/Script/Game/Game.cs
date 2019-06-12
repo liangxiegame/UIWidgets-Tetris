@@ -31,16 +31,15 @@ namespace TetrisApp
         public void Up()
         {
             Debug.Log("上");
-            
+
             mCurrent.RowIndex--;
 
             if (mCurrent.RowIndex < 0)
             {
                 mCurrent.RowIndex = 0;
             }
-            
-            setState(() => { });
 
+            setState(() => { });
         }
 
         public void Down()
@@ -51,9 +50,23 @@ namespace TetrisApp
 
             if (mCurrent.RowIndex > 19)
             {
+                Debug.Log("已经下落到底");
+
                 mCurrent.RowIndex = 19;
+
+                mData[mCurrent.RowIndex][mCurrent.ColIndex] = 1;
+
+                mCurrent = new Block();
             }
-            
+            else if (mData[mCurrent.RowIndex][mCurrent.ColIndex] == 1)
+            {
+                mCurrent.RowIndex--;
+
+                mData[mCurrent.RowIndex][mCurrent.ColIndex] = 1;
+
+                mCurrent = new Block();
+            }
+
             setState(() => { });
         }
 
@@ -67,9 +80,8 @@ namespace TetrisApp
             {
                 mCurrent.ColIndex = 0;
             }
-            
-            setState(() => { });
 
+            setState(() => { });
         }
 
         public void Right()
@@ -83,41 +95,51 @@ namespace TetrisApp
             {
                 mCurrent.ColIndex = 9;
             }
-            
-            setState(() => { });
 
+            setState(() => { });
         }
+
+        private List<List<int>> mData = new List<List<int>>
+        {
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+        };
 
         public override Widget build(BuildContext context)
         {
-            var data = new List<List<int>>
+            var data = new List<List<int>>();
+
+            mData.ForEach(line =>
             {
-                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-            };
+                var lineDatas = new List<int>();
+
+                line.ForEach(brickData => { lineDatas.Add(brickData); });
+
+                data.Add(lineDatas);
+            });
+
 
             data[mCurrent.RowIndex][mCurrent.ColIndex] = 1;
 
             var mixed = data;
-
 
             return new GameState(data: mixed, child: widget.Child);
         }

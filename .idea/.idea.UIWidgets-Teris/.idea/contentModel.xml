@@ -8,33 +8,9 @@
       <e p="Assets" t="Include">
         <e p="Script" t="Include">
           <e p="app.cs" t="Include" />
-          <e p="Gamer" t="Include">
-            <e p="Block.cs" t="Include" />
-            <e p="Gamer.cs" t="Include" />
-            <e p="keyboard.cs" t="Include" />
-          </e>
-          <e p="Generated" t="Include">
-            <e p="i18n.cs" t="Include" />
-          </e>
-          <e p="Income" t="Include">
-            <e p="DonationDialog.cs" t="Include" />
-          </e>
-          <e p="material" t="Include">
-            <e p="Audios.cs" t="Include" />
-            <e p="Briks.cs" t="Include" />
-            <e p="Images.cs" t="Include" />
-            <e p="material.cs" t="Include" />
-          </e>
-          <e p="Panel" t="Include">
-            <e p="Controller.cs" t="Include" />
-            <e p="PageLand.cs" t="Include" />
-            <e p="PagePortrait.cs" t="Include" />
-            <e p="PlayerPanel.cs" t="Include" />
-            <e p="Screen.cs" t="Include" />
-            <e p="StatusPanel.cs" t="Include" />
-          </e>
-          <e p="Utils" t="Include">
-            <e p="Spacer.cs" t="Include" />
+          <e p="AppConstants.cs" t="Include" />
+          <e p="Game" t="Include">
+            <e p="Brick.cs" t="Include" />
           </e>
         </e>
       </e>

@@ -10,7 +10,19 @@
           <e p="app.cs" t="Include" />
           <e p="AppConstants.cs" t="Include" />
           <e p="Game" t="Include">
-            <e p="Brick.cs" t="Include" />
+            <e p="Basic" t="Include">
+              <e p="Brick.cs" t="Include" />
+            </e>
+            <e p="Game.cs" t="Include" />
+            <e p="Object" t="Include">
+              <e p="Block.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Input" t="Include">
+            <e p="KeyboardController.cs" t="Include" />
+          </e>
+          <e p="ui" t="Include">
+            <e p="GamePad.cs" t="Include" />
           </e>
         </e>
       </e>

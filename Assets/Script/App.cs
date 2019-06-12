@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Unity.UIWidgets.engine;
+﻿using Unity.UIWidgets.engine;
 using Unity.UIWidgets.painting;
 using Unity.UIWidgets.ui;
 using Unity.UIWidgets.widgets;
@@ -19,15 +18,10 @@ namespace TetrisApp
                         decoration: new BoxDecoration(
                             border: Border.all(color: Color.black)
                         ),
-                        child: new Column(
-                            children: Enumerable.Range(0, 20).Select(
-                                index => new Row(
-                                    children:
-                                    Enumerable.Range(0, 10).Select(
-                                        index1 => Brick.Empty() as Widget
-                                    ).ToList()
-                                ) as Widget
-                            ).ToList()
+                        child: new Game(
+                            child: new KeyboardController(
+                                child: new GamePad()
+                            )
                         )
                     )
                 )

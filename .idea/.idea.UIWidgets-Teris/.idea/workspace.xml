@@ -2,40 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bc35ff5e-bb11-49df-b2f4-8b78f12102f2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Gamer/KeyBoard.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Gamer/Keyboard.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Income.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Income/DonationDialog.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Income/DonationDialog.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Material/Briks.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Material/Briks.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Material/Images.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Material/Images.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Material/Material.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Material/Material.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Panel.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Panel/Controller.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Panel/Controller.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Panel/PageLand.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Panel/PageLand.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Panel/PagePortrait.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Panel/PagePortrait.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Panel/PlayerPanel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Panel/PlayerPanel.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Panel/Screen.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Panel/Screen.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Panel/StatusPanel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Panel/StatusPanel.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Utils.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Utils/Spacer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Script/Utils/Spacer.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.UIWidgets-Teris/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UIWidgets-Teris/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.UIWidgets-Teris/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UIWidgets-Teris/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UIWidgets-Teris/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UIWidgets-Teris/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Script/App.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/App.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Script/Gamer/Block.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Gamer/Block.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Script/Gamer/Gamer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Gamer/Gamer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Script/Generated/i18n.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Generated/i18n.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -68,7 +36,7 @@
         <entry file="file://$PROJECT_DIR$/Assets/Script/Panel/Controller.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-82">
-              <caret line="401" column="35" lean-forward="true" selection-start-line="401" selection-start-column="35" selection-end-line="401" selection-end-column="35" />
+              <caret line="401" column="35" selection-start-line="401" selection-start-column="35" selection-end-line="401" selection-end-column="35" />
               <folding>
                 <marker date="1560157112778" expanded="true" signature="6:451" ph="..." />
                 <marker date="1560157112778" expanded="true" signature="472:16946" ph="{...}" />
@@ -183,7 +151,7 @@
         <entry file="file://$PROJECT_DIR$/Assets/Script/Panel/Screen.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="486">
-              <caret line="45" column="48" lean-forward="true" selection-start-line="45" selection-start-column="48" selection-end-line="45" selection-end-column="48" />
+              <caret line="45" column="48" selection-start-line="45" selection-start-column="48" selection-end-line="45" selection-end-column="48" />
               <folding>
                 <marker date="1560141631629" expanded="true" signature="6:209" ph="..." />
                 <marker date="1560141631629" expanded="true" signature="230:3509" ph="{...}" />
@@ -213,7 +181,7 @@
         <entry file="file://$PROJECT_DIR$/Assets/Script/Material/Images.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="422">
-              <caret line="55" column="44" lean-forward="true" selection-start-line="55" selection-start-column="44" selection-end-line="55" selection-end-column="44" />
+              <caret line="55" column="44" selection-start-line="55" selection-start-column="44" selection-end-line="55" selection-end-column="44" />
               <folding>
                 <marker date="1560147563843" expanded="true" signature="6:193" ph="..." />
                 <marker date="1560147563843" expanded="true" signature="214:3117" ph="{...}" />
@@ -270,8 +238,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Assets/Script/Gamer/Gamer.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-313">
-              <caret line="329" column="92" selection-start-line="329" selection-start-column="92" selection-end-line="329" selection-end-column="92" />
+            <state relative-caret-position="101">
+              <caret line="352" lean-forward="true" selection-start-line="352" selection-end-line="352" />
               <folding>
                 <marker date="1560159947564" expanded="true" signature="6:231" ph="..." />
                 <marker date="1560159947564" expanded="true" signature="252:13170" ph="{...}" />
@@ -411,7 +379,7 @@
         <entry file="file://$PROJECT_DIR$/Assets/Script/Panel/StatusPanel.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="756">
-              <caret line="44" column="9" lean-forward="true" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
+              <caret line="44" column="9" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
               <folding>
                 <marker date="1560147602101" expanded="true" signature="6:155" ph="..." />
                 <marker date="1560147602101" expanded="true" signature="176:1883" ph="{...}" />
@@ -656,12 +624,12 @@
       <workItem from="1560048430952" duration="6576000" />
       <workItem from="1560065246102" duration="3499000" />
       <workItem from="1560082419040" duration="4000" />
-      <workItem from="1560141188013" duration="16176000" />
+      <workItem from="1560141188013" duration="17380000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="58314000" />
+    <option name="totallyTimeSpent" value="59518000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -674,7 +642,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="976" height="1047" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17467248" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -2155,7 +2122,7 @@
     <entry file="file://$PROJECT_DIR$/Assets/Script/Panel/StatusPanel.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="756">
-          <caret line="44" column="9" lean-forward="true" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
+          <caret line="44" column="9" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
           <folding>
             <marker date="1560147602101" expanded="true" signature="6:155" ph="..." />
             <marker date="1560147602101" expanded="true" signature="176:1883" ph="{...}" />
@@ -2218,7 +2185,7 @@
     <entry file="file://$PROJECT_DIR$/Assets/Script/Panel/Controller.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-82">
-          <caret line="401" column="35" lean-forward="true" selection-start-line="401" selection-start-column="35" selection-end-line="401" selection-end-column="35" />
+          <caret line="401" column="35" selection-start-line="401" selection-start-column="35" selection-end-line="401" selection-end-column="35" />
           <folding>
             <marker date="1560157112778" expanded="true" signature="6:451" ph="..." />
             <marker date="1560157112778" expanded="true" signature="472:16946" ph="{...}" />
@@ -2465,7 +2432,7 @@
     <entry file="file://$PROJECT_DIR$/Assets/Script/Panel/Screen.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="486">
-          <caret line="45" column="48" lean-forward="true" selection-start-line="45" selection-start-column="48" selection-end-line="45" selection-end-column="48" />
+          <caret line="45" column="48" selection-start-line="45" selection-start-column="48" selection-end-line="45" selection-end-column="48" />
           <folding>
             <marker date="1560141631629" expanded="true" signature="6:209" ph="..." />
             <marker date="1560141631629" expanded="true" signature="230:3509" ph="{...}" />
@@ -2493,7 +2460,7 @@
     <entry file="file://$PROJECT_DIR$/Assets/Script/Material/Images.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="422">
-          <caret line="55" column="44" lean-forward="true" selection-start-line="55" selection-start-column="44" selection-end-line="55" selection-end-column="44" />
+          <caret line="55" column="44" selection-start-line="55" selection-start-column="44" selection-end-line="55" selection-end-column="44" />
           <folding>
             <marker date="1560147563843" expanded="true" signature="6:193" ph="..." />
             <marker date="1560147563843" expanded="true" signature="214:3117" ph="{...}" />
@@ -2546,8 +2513,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/Script/Gamer/Gamer.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-313">
-          <caret line="329" column="92" selection-start-line="329" selection-start-column="92" selection-end-line="329" selection-end-column="92" />
+        <state relative-caret-position="101">
+          <caret line="352" lean-forward="true" selection-start-line="352" selection-end-line="352" />
           <folding>
             <marker date="1560159947564" expanded="true" signature="6:231" ph="..." />
             <marker date="1560159947564" expanded="true" signature="252:13170" ph="{...}" />

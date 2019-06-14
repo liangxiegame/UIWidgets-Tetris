@@ -27,17 +27,22 @@ namespace TetrisApp
 
     public class GameController : State<Game>
     {
-        private Block mCurrent = new Block();
+        private Block mCurrent;
+
+        public override void initState()
+        {
+            base.initState();
+            mCurrent = Block.Next;
+        }
 
         public void Up()
         {
-            mCurrent.RowIndex--;
+            var next = mCurrent.Rotate();
 
-            if (mCurrent.RowIndex < 0)
+            if (next.IsValidateInData(mData))
             {
-                mCurrent.RowIndex = 0;
+                mCurrent = next;
             }
-
             setState(() => { });
         }
 
@@ -45,14 +50,14 @@ namespace TetrisApp
         {
             var next = mCurrent.Down();
 
-            if (next.RowIndex > 19 || mData[next.RowIndex][next.ColIndex] == 1)
+            if (next.IsValidateInData(mData))
             {
-                // 进行积累
-                MixCurrentBlockIntoData();
+                mCurrent = next;
             }
             else
             {
-                mCurrent = next;
+                // 进行积累
+                MixCurrentBlockIntoData();
             }
 
             setState(() => { });
@@ -72,25 +77,45 @@ namespace TetrisApp
 
         public void Right()
         {
+            var next = mCurrent.Right();
 
-
-            mCurrent.ColIndex++;
-
-            if (mCurrent.ColIndex > 9)
+            if (next.IsValidateInData(mData))
             {
-                mCurrent.ColIndex = 9;
+                mCurrent = next;
             }
 
             setState(() => { });
         }
 
+        List<List<int>> GetMixedData()
+        {
+            var mixed = new List<List<int>>();
+
+            for (var rowIndex = 0; rowIndex < mData.Count; rowIndex++)
+            {
+                var line = mData[rowIndex];
+
+                var lineDatas = new List<int>();
+
+                for (var colIndex = 0; colIndex < line.Count; colIndex++)
+                {
+                    var brickData = mCurrent.Get(rowIndex, colIndex) == 1 ? 1 : line[colIndex];
+                    lineDatas.Add(brickData);
+                }
+
+                mixed.Add(lineDatas);
+            }
+
+            return mixed;
+        }
+
+
         void MixCurrentBlockIntoData()
         {
-            mData[mCurrent.RowIndex][mCurrent.ColIndex] = 1;
+            mData = GetMixedData();
 
-            mCurrent = new Block();
+            mCurrent = Block.Next;
 
-            
             var clearLines = new List<int>();
 
             for (var i = 0; i < mData.Count; i++)
@@ -111,7 +136,6 @@ namespace TetrisApp
                 clearLines.ForEach(lineIndex => mData.RemoveAt(lineIndex));
 
                 clearLines.ForEach(__ => mData.Insert(0, Enumerable.Range(0, 10).Select(_ => 0).ToList()));
-                
             }
         }
 
@@ -141,23 +165,7 @@ namespace TetrisApp
 
         public override Widget build(BuildContext context)
         {
-            var data = new List<List<int>>();
-
-            mData.ForEach(line =>
-            {
-                var lineDatas = new List<int>();
-
-                line.ForEach(brickData => { lineDatas.Add(brickData); });
-
-                data.Add(lineDatas);
-            });
-
-
-            data[mCurrent.RowIndex][mCurrent.ColIndex] = 1;
-
-            var mixed = data;
-
-            return new GameState(data: mixed, child: widget.Child);
+            return new GameState(data: GetMixedData(), child: widget.Child);
         }
     }
 

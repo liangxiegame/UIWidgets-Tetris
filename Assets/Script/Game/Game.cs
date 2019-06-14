@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.UIWidgets.widgets;
 using UnityEngine;
 
@@ -30,8 +31,6 @@ namespace TetrisApp
 
         public void Up()
         {
-            Debug.Log("上");
-
             mCurrent.RowIndex--;
 
             if (mCurrent.RowIndex < 0)
@@ -44,27 +43,16 @@ namespace TetrisApp
 
         public void Down()
         {
-            Debug.Log("下");
+            var next = mCurrent.Down();
 
-            mCurrent.RowIndex++;
-
-            if (mCurrent.RowIndex > 19)
+            if (next.RowIndex > 19 || mData[next.RowIndex][next.ColIndex] == 1)
             {
-                Debug.Log("已经下落到底");
-
-                mCurrent.RowIndex = 19;
-
-                mData[mCurrent.RowIndex][mCurrent.ColIndex] = 1;
-
-                mCurrent = new Block();
+                // 进行积累
+                MixCurrentBlockIntoData();
             }
-            else if (mData[mCurrent.RowIndex][mCurrent.ColIndex] == 1)
+            else
             {
-                mCurrent.RowIndex--;
-
-                mData[mCurrent.RowIndex][mCurrent.ColIndex] = 1;
-
-                mCurrent = new Block();
+                mCurrent = next;
             }
 
             setState(() => { });
@@ -72,8 +60,6 @@ namespace TetrisApp
 
         public void Left()
         {
-            Debug.Log("左");
-
             mCurrent.ColIndex--;
 
             if (mCurrent.ColIndex < 0)
@@ -86,7 +72,6 @@ namespace TetrisApp
 
         public void Right()
         {
-            Debug.Log("右");
 
 
             mCurrent.ColIndex++;
@@ -99,13 +84,44 @@ namespace TetrisApp
             setState(() => { });
         }
 
+        void MixCurrentBlockIntoData()
+        {
+            mData[mCurrent.RowIndex][mCurrent.ColIndex] = 1;
+
+            mCurrent = new Block();
+
+            
+            var clearLines = new List<int>();
+
+            for (var i = 0; i < mData.Count; i++)
+            {
+                if (mData[i].All(brickData => brickData == 1))
+                {
+                    clearLines.Add(i);
+                }
+            }
+
+            if (clearLines.Count > 0)
+            {
+                // 进行消除操作
+                Debug.Log("进行消除操作");
+
+                clearLines.Reverse();
+
+                clearLines.ForEach(lineIndex => mData.RemoveAt(lineIndex));
+
+                clearLines.ForEach(__ => mData.Insert(0, Enumerable.Range(0, 10).Select(_ => 0).ToList()));
+                
+            }
+        }
+
         private List<List<int>> mData = new List<List<int>>
         {
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 0
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 1
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 2
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 3
+            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 4
             new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},

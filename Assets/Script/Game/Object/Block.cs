@@ -124,13 +124,13 @@ namespace TetrisApp
         public static Dictionary<BlockType, List<int>> START_XY =
             new Dictionary<BlockType, List<int>>()
             {
-                {BlockType.O, new List<int> {-1, 4}},
-                {BlockType.Z, new List<int> {-1, 4}},
-                {BlockType.S, new List<int> {-1, 4}},
-                {BlockType.T, new List<int> {-1, 4}},
-                {BlockType.J, new List<int> {-1, 4}},
-                {BlockType.L, new List<int> {-1, 4}},
-                {BlockType.I, new List<int> {-1, 4}},
+                {BlockType.O, new List<int> {0, 4}},
+                {BlockType.Z, new List<int> {0, 4}},
+                {BlockType.S, new List<int> {0, 4}},
+                {BlockType.T, new List<int> {0, 4}},
+                {BlockType.J, new List<int> {0, 4}},
+                {BlockType.L, new List<int> {0, 4}},
+                {BlockType.I, new List<int> {0, 4}},
             };
 
 

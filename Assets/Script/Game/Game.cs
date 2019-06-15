@@ -11,7 +11,7 @@ namespace TetrisApp
     public enum GameStates
     {
         Running,
-        
+
         Drop
     }
 
@@ -41,6 +41,10 @@ namespace TetrisApp
 
         private GameStates mStates = GameStates.Running;
 
+        private int mLines = 0;
+
+        private int mPoints = 0;
+
         public override void initState()
         {
             base.initState();
@@ -51,7 +55,6 @@ namespace TetrisApp
 
         public void Drop()
         {
-
             if (mStates == GameStates.Running)
             {
                 for (var i = 0; i < 20; i++)
@@ -64,7 +67,7 @@ namespace TetrisApp
 
                         this.setState(() => { });
                         mStates = GameStates.Drop;
-                        
+
                         Promise.Delayed(TimeSpan.FromMilliseconds(100))
                             .Then(() => { MixCurrentBlockIntoData(); });
 
@@ -88,19 +91,22 @@ namespace TetrisApp
 
         public void Down()
         {
-            var next = mCurrent.Down();
-
-            if (next.IsValidateInData(mData))
+            if (mStates == GameStates.Running)
             {
-                mCurrent = next;
-            }
-            else
-            {
-                // 进行积累
-                MixCurrentBlockIntoData();
-            }
+                var next = mCurrent.Down();
 
-            setState(() => { });
+                if (next.IsValidateInData(mData))
+                {
+                    mCurrent = next;
+                }
+                else
+                {
+                    // 进行积累
+                    MixCurrentBlockIntoData();
+                }
+
+                setState(() => { });
+            }
         }
 
         public void Left()
@@ -176,11 +182,16 @@ namespace TetrisApp
                 clearLines.ForEach(lineIndex => mData.RemoveAt(lineIndex));
 
                 clearLines.ForEach(__ => mData.Insert(0, Enumerable.Range(0, 10).Select(_ => 0).ToList()));
+
+                mLines += clearLines.Count;
+                mPoints += clearLines.Count * 5;
+
+                Debug.Log($"Lines:{mLines} Points:{mPoints}");
             }
 
             mStates = GameStates.Running;
-            
-            setState(()=>{});
+
+            setState(() => { });
         }
 
         private List<List<int>> mData = new List<List<int>>
@@ -209,15 +220,25 @@ namespace TetrisApp
 
         public override Widget build(BuildContext context)
         {
-            return new GameState(data: GetMixedData(), child: widget.Child);
+            return new GameState(
+                data: GetMixedData(),
+                clearLines: mLines,
+                points: mPoints,
+                child: widget.Child
+            );
         }
     }
 
     public class GameState : InheritedWidget
     {
-        public GameState(List<List<int>> data, Widget child) : base(child: child)
+        public int ClearLines = 0;
+        public int Points     = 0;
+
+        public GameState(List<List<int>> data, int clearLines, int points, Widget child) : base(child: child)
         {
             Data = data;
+            ClearLines = clearLines;
+            Points = points;
         }
 
         public List<List<int>> Data { get; }

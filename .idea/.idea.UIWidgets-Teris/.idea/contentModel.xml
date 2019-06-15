@@ -23,6 +23,7 @@
           </e>
           <e p="ui" t="Include">
             <e p="GamePad.cs" t="Include" />
+            <e p="StatusPad.cs" t="Include" />
           </e>
           <e p="utils.cs" t="Include" />
         </e>

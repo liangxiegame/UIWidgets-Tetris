@@ -184,7 +184,7 @@ namespace TetrisApp
                 clearLines.ForEach(__ => mData.Insert(0, Enumerable.Range(0, 10).Select(_ => 0).ToList()));
 
                 mLines += clearLines.Count;
-                mPoints += clearLines.Count * 5;
+                mPoints += Rules.PointsForClearLines(clearLines.Count);
 
                 Debug.Log($"Lines:{mLines} Points:{mPoints}");
             }

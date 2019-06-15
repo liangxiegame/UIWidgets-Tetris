@@ -1,10 +1,20 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using RSG;
+using Unity.UIWidgets.ui;
 using Unity.UIWidgets.widgets;
 using UnityEngine;
 
 namespace TetrisApp
 {
+    public enum GameStates
+    {
+        Running,
+        
+        Drop
+    }
+
     public class Game : StatefulWidget
     {
         public Widget Child;
@@ -29,13 +39,42 @@ namespace TetrisApp
     {
         private Block mCurrent;
 
+        private GameStates mStates = GameStates.Running;
+
         public override void initState()
         {
             base.initState();
             mCurrent = Block.Next;
+
+            Window.instance.periodic(TimeSpan.FromMilliseconds(800), () => { Down(); });
         }
 
-        public void Up()
+        public void Drop()
+        {
+
+            if (mStates == GameStates.Running)
+            {
+                for (var i = 0; i < 20; i++)
+                {
+                    var next = mCurrent.Down(i + 1);
+
+                    if (!next.IsValidateInData(mData))
+                    {
+                        mCurrent = mCurrent.Down(i);
+
+                        this.setState(() => { });
+                        mStates = GameStates.Drop;
+                        
+                        Promise.Delayed(TimeSpan.FromMilliseconds(100))
+                            .Then(() => { MixCurrentBlockIntoData(); });
+
+                        break;
+                    }
+                }
+            }
+        }
+
+        public void Rotate()
         {
             var next = mCurrent.Rotate();
 
@@ -43,6 +82,7 @@ namespace TetrisApp
             {
                 mCurrent = next;
             }
+
             setState(() => { });
         }
 
@@ -87,7 +127,7 @@ namespace TetrisApp
             setState(() => { });
         }
 
-        List<List<int>> GetMixedData()
+        private List<List<int>> GetMixedData()
         {
             var mixed = new List<List<int>>();
 
@@ -137,6 +177,10 @@ namespace TetrisApp
 
                 clearLines.ForEach(__ => mData.Insert(0, Enumerable.Range(0, 10).Select(_ => 0).ToList()));
             }
+
+            mStates = GameStates.Running;
+            
+            setState(()=>{});
         }
 
         private List<List<int>> mData = new List<List<int>>

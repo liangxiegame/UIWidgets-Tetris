@@ -124,13 +124,13 @@ namespace TetrisApp
         public static Dictionary<BlockType, List<int>> START_XY =
             new Dictionary<BlockType, List<int>>()
             {
-                {BlockType.O, new List<int> {0, 4}},
-                {BlockType.Z, new List<int> {0, 4}},
-                {BlockType.S, new List<int> {0, 4}},
-                {BlockType.T, new List<int> {0, 4}},
-                {BlockType.J, new List<int> {0, 4}},
-                {BlockType.L, new List<int> {0, 4}},
-                {BlockType.I, new List<int> {1, 4}},
+                {BlockType.O, new List<int> {-1, 4}},
+                {BlockType.Z, new List<int> {-1, 4}},
+                {BlockType.S, new List<int> {-1, 4}},
+                {BlockType.T, new List<int> {-1, 4}},
+                {BlockType.J, new List<int> {-1, 4}},
+                {BlockType.L, new List<int> {-1, 4}},
+                {BlockType.I, new List<int> {-1, 4}},
             };
 
 
@@ -147,11 +147,7 @@ namespace TetrisApp
             {
                 var type = (BlockType) Random.Range(0, 7);
 
-
-                Debug.Log(BLOCK_SHAPES[type]);
-                Debug.Log(type);
-
-                return new Block()
+                return new Block
                 {
                     RowIndex = START_XY[type][0],
                     ColIndex = START_XY[type][1],
@@ -171,8 +167,6 @@ namespace TetrisApp
 
         public bool IsValidateInData(List<List<int>> data)
         {
-            Debug.Log(Shape);
-
             if (RowIndex + Shape.Count > 20 ||
                 RowIndex < 0 ||
                 ColIndex + Shape[0].Count > 10 ||
@@ -183,7 +177,7 @@ namespace TetrisApp
 
             for (var i = 0; i < Shape.Count; i++)
             {
-                for (int j = 0; j < Shape[0].Count; j++)
+                for (var j = 0; j < Shape[0].Count; j++)
                 {
                     if (data[i + RowIndex][j + ColIndex] == 1
                         && Get(i + RowIndex, j + ColIndex) == 1)
@@ -228,11 +222,11 @@ namespace TetrisApp
         }
 
 
-        public Block Down()
+        public Block Down(int step = 1)
         {
             return new Block()
             {
-                RowIndex = RowIndex + 1,
+                RowIndex = RowIndex + step,
                 ColIndex = ColIndex,
                 Shape = Shape,
                 Type = Type,

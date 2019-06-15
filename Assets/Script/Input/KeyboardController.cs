@@ -40,7 +40,7 @@ namespace TetrisApp
 
             if (keyCode == KeyCode.W || keyCode == KeyCode.UpArrow)
             {
-                Game.of(context).Up();
+                Game.of(context).Rotate();
             }
             else if (keyCode == KeyCode.A || keyCode == KeyCode.LeftArrow)
             {
@@ -53,6 +53,9 @@ namespace TetrisApp
             else if (keyCode == KeyCode.D || keyCode == KeyCode.RightArrow)
             {
                 Game.of(context).Right();
+            } else if (keyCode == KeyCode.K || keyCode == KeyCode.Space)
+            {
+                Game.of(context).Drop();
             }
         }
 

@@ -111,11 +111,11 @@ namespace TetrisApp
 
         public void Left()
         {
-            mCurrent.ColIndex--;
+            var next = mCurrent.Left();
 
-            if (mCurrent.ColIndex < 0)
+            if (next.IsValidateInData(mData))
             {
-                mCurrent.ColIndex = 0;
+                mCurrent = next;
             }
 
             setState(() => { });

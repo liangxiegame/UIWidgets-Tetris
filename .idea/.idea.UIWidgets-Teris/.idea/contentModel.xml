@@ -9,6 +9,9 @@
         <e p="Script" t="Include">
           <e p="app.cs" t="Include" />
           <e p="AppConstants.cs" t="Include" />
+          <e p="Componets" t="Include">
+            <e p="Spacer.cs" t="Include" />
+          </e>
           <e p="Game" t="Include">
             <e p="Basic" t="Include">
               <e p="Brick.cs" t="Include" />
@@ -23,8 +26,13 @@
             <e p="KeyboardController.cs" t="Include" />
           </e>
           <e p="ui" t="Include">
+            <e p="Components" t="Include">
+              <e p="GBButton.cs" t="Include" />
+            </e>
             <e p="GamePad.cs" t="Include" />
+            <e p="GBJoyStick.cs" t="Include" />
             <e p="GBScreen.cs" t="Include" />
+            <e p="GBUserInterface.cs" t="Include" />
             <e p="StatusPad.cs" t="Include" />
           </e>
           <e p="utils.cs" t="Include" />

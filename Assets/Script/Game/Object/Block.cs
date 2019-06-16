@@ -209,6 +209,19 @@ namespace TetrisApp
             }
         }
 
+        public Block Left()
+        {
+            return new Block()
+            {
+                RowIndex = RowIndex,
+                ColIndex = ColIndex - 1,
+                Shape = Shape,
+                Type = Type,
+                RotateIndex = RotateIndex
+            };
+        }
+
+
         public Block Right()
         {
             return new Block()

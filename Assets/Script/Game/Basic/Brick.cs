@@ -4,6 +4,27 @@ using Unity.UIWidgets.widgets;
 
 namespace TetrisApp
 {
+    public class BrickSize : InheritedWidget
+    {
+        public Size Size;
+
+        public BrickSize(Size size, Widget child) : base(child: child)
+        {
+            Size = size;
+        }
+
+        public static BrickSize of(BuildContext context)
+        {
+            return context.inheritFromWidgetOfExactType(typeof(BrickSize)) as BrickSize;
+        }
+
+        public override bool updateShouldNotify(InheritedWidget oldWidget)
+        {
+            var oldSize = oldWidget as BrickSize;
+            return oldSize.Size != this.Size;
+        }
+    }
+
     public class Brick : StatelessWidget
     {
         private readonly Color mColor;
@@ -30,7 +51,7 @@ namespace TetrisApp
 
         public override Widget build(BuildContext context)
         {
-            var width = 20;
+            var width = BrickSize.of(context).Size.width;
 
             return SizedBox.fromSize(
                 size: new Size(width, width),

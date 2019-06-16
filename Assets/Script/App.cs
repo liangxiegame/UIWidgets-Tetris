@@ -11,9 +11,9 @@ namespace TetrisApp
     {
         protected override Widget createWidget()
         {
-            return new Game(
-                child: new KeyboardController(
-                    child: new GBScreen()
+            return new MaterialApp(
+                home: new Scaffold(
+                    body: new GBUserInterface()
                 )
             );
         }

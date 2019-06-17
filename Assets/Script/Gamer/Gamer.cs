@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using RSG;
 using Unity.UIWidgets.async;
 using Unity.UIWidgets.foundation;
 using Unity.UIWidgets.ui;
@@ -165,7 +166,7 @@ namespace TerisGame
             if (mStates == GameStates.running && mCurrent != null)
             {
                 var next = mCurrent.Rotate();
-                
+
                 if (next.IsValidInMatrix(mData))
                 {
                     mCurrent = next;
@@ -214,7 +215,7 @@ namespace TerisGame
             setState(() => { });
         }
 
-        
+
         public void Drop()
         {
             if (mStates == GameStates.running && mCurrent != null)
@@ -316,8 +317,8 @@ namespace TerisGame
                     mMask[line] = Enumerable.Range(0, GameConstants.GAME_PAD_MATRIX_W).Select(_ => 0).ToList());
 
                 //移除所有被消除的行
-                clearLines.ForEach(line=> {
-                    
+                clearLines.ForEach(line =>
+                {
                     mData.Insert(0, Enumerable.Range(0, GameConstants.GAME_PAD_MATRIX_W).Select(_ => 0).ToList());
                 });
 //                debugPrint("clear lines : $clearLines");
@@ -394,6 +395,85 @@ namespace TerisGame
                 mAutoFallTimer = Window.instance.periodic(GameConstants.SPEED[mLevel - 1],
                     () => { Down(enableSounds: false); });
             }
+        }
+
+        void Pause()
+        {
+            if (mStates == GameStates.running)
+            {
+                mStates = GameStates.paused;
+            }
+
+            setState(() => { });
+        }
+
+        public void PauseOrResume()
+        {
+            if (mStates == GameStates.running)
+            {
+                Pause();
+            }
+            else if (mStates == GameStates.paused || mStates == GameStates.none)
+            {
+                StartGame();
+            }
+        }
+
+        public void Reset()
+        {
+            if (mStates == GameStates.none)
+            {
+                // 可以开始游戏
+                StartGame();
+                return;
+            }
+
+            if (mStates == GameStates.reset)
+            {
+                return;
+            }
+
+//            _sound.start();
+            mStates = GameStates.reset;
+
+            Window.instance.startCoroutine(ResetAnimation());
+        }
+
+        IEnumerator ResetAnimation()
+        {
+            var line = GameConstants.GAME_PAD_MATRIX_H;
+
+            do
+            {
+                line--;
+                for (int i = 0; i < GameConstants.GAME_PAD_MATRIX_W; i++)
+                {
+                    mData[line][i] = 1;
+                }
+
+                setState(() => { });
+                yield return new WaitForSeconds((float) GameConstants.REST_LINE_DURATION.TotalSeconds);
+            } while (line != 0);
+
+            mCurrent = null;
+            GetNext();
+            mPoints = 0;
+            mCleared = 0;
+
+
+            do
+            {
+                for (int i = 0; i < GameConstants.GAME_PAD_MATRIX_W; i++)
+                {
+                    mData[line][i] = 0;
+                }
+
+                setState(() => { });
+                line++;
+                yield return new WaitForSeconds((float) GameConstants.REST_LINE_DURATION.TotalSeconds);
+            } while (line != GameConstants.GAME_PAD_MATRIX_H);
+
+            setState(() => { mStates = GameStates.none; });
         }
 
         public void StartGame()

@@ -182,7 +182,7 @@ namespace TerisGame
                             enableLongPress: false,
                             onTap: () =>
                             {
-//                                Game.of(context).soundSwitch();
+//                                Game.Of(context).SoundSwitch();
                             }
                         )
                     ),
@@ -194,7 +194,7 @@ namespace TerisGame
                             enableLongPress: false,
                             onTap: () =>
                             {
-//                                Game.of(context).pauseOrResume();
+                                Game.Of(context).PauseOrResume();
                             }
                         )
                     ),
@@ -206,7 +206,7 @@ namespace TerisGame
                             enableLongPress: false,
                             onTap: () =>
                             {
-//                                Game.of(context).reset();
+                                Game.Of(context).Reset();
                             }
                         )
                     )

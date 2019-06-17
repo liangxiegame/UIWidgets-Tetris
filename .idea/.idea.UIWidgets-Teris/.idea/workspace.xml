@@ -33,7 +33,7 @@
         <entry file="file://$PROJECT_DIR$/Assets/Script/App.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
-              <caret line="15" column="32" lean-forward="true" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
+              <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
               <folding>
                 <marker date="1560606049615" expanded="true" signature="6:184" ph="..." />
                 <marker date="1560606049615" expanded="true" signature="205:481" ph="{...}" />
@@ -48,7 +48,7 @@
         <entry file="file://$PROJECT_DIR$/Assets/Script/UI/GBUserInterface.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="525">
-              <caret line="28" column="46" lean-forward="true" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
+              <caret line="28" column="46" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
               <folding>
                 <marker date="1560670708797" expanded="true" signature="6:154" ph="..." />
                 <marker date="1560670708797" expanded="true" signature="175:2123" ph="{...}" />
@@ -112,7 +112,7 @@
         <entry file="file://$PROJECT_DIR$/Assets/Script/UI/Components/GBButton.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1829">
-              <caret line="59" column="14" lean-forward="true" selection-start-line="59" selection-start-column="14" selection-end-line="59" selection-end-column="14" />
+              <caret line="59" column="14" selection-start-line="59" selection-start-column="14" selection-end-line="59" selection-end-column="14" />
               <folding>
                 <marker date="1560672063965" expanded="true" signature="6:153" ph="..." />
                 <marker date="1560672063965" expanded="true" signature="174:1626" ph="{...}" />
@@ -173,7 +173,7 @@
         <entry file="file://$PROJECT_DIR$/Assets/Script/Game/Game.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="457">
-              <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+              <caret line="40" selection-start-line="40" selection-end-line="40" />
               <folding>
                 <marker date="1560604503379" expanded="true" signature="6:153" ph="..." />
                 <marker date="1560604503379" expanded="true" signature="174:6842" ph="{...}" />
@@ -524,12 +524,12 @@
       <workItem from="1560324330972" duration="10487000" />
       <workItem from="1560490983959" duration="10610000" />
       <workItem from="1560590237920" duration="9476000" />
-      <workItem from="1560665210648" duration="6102000" />
+      <workItem from="1560665210648" duration="6701000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="96193000" />
+    <option name="totallyTimeSpent" value="96792000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -542,7 +542,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21204048" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -2815,7 +2814,7 @@
     <entry file="file://$PROJECT_DIR$/Assets/Script/Game/Game.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="457">
-          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+          <caret line="40" selection-start-line="40" selection-end-line="40" />
           <folding>
             <marker date="1560604503379" expanded="true" signature="6:153" ph="..." />
             <marker date="1560604503379" expanded="true" signature="174:6842" ph="{...}" />
@@ -2877,7 +2876,7 @@
     <entry file="file://$PROJECT_DIR$/Assets/Script/App.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
-          <caret line="15" column="32" lean-forward="true" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
+          <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
           <folding>
             <marker date="1560606049615" expanded="true" signature="6:184" ph="..." />
             <marker date="1560606049615" expanded="true" signature="205:481" ph="{...}" />
@@ -2890,7 +2889,7 @@
     <entry file="file://$PROJECT_DIR$/Assets/Script/UI/Components/GBButton.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1829">
-          <caret line="59" column="14" lean-forward="true" selection-start-line="59" selection-start-column="14" selection-end-line="59" selection-end-column="14" />
+          <caret line="59" column="14" selection-start-line="59" selection-start-column="14" selection-end-line="59" selection-end-column="14" />
           <folding>
             <marker date="1560672063965" expanded="true" signature="6:153" ph="..." />
             <marker date="1560672063965" expanded="true" signature="174:1626" ph="{...}" />
@@ -2907,7 +2906,7 @@
     <entry file="file://$PROJECT_DIR$/Assets/Script/UI/GBUserInterface.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
-          <caret line="28" column="46" lean-forward="true" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
+          <caret line="28" column="46" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
           <folding>
             <marker date="1560670708797" expanded="true" signature="6:154" ph="..." />
             <marker date="1560670708797" expanded="true" signature="175:2123" ph="{...}" />

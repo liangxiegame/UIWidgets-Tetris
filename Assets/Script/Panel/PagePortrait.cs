@@ -3,6 +3,7 @@ using Unity.UIWidgets.material;
 using Unity.UIWidgets.painting;
 using Unity.UIWidgets.ui;
 using Unity.UIWidgets.widgets;
+using DialogUtils = Unity.UIWidgets.material.DialogUtils;
 
 namespace TerisGame
 {
@@ -28,10 +29,10 @@ namespace TerisGame
                                         new FlatButton(
                                             onPressed: () =>
                                             {
-//                                                DialogUtils.showDialog(
-//                                                    context: context,
-//                                                    builder: (buildContext => new DonationDialog())
-//                                                );
+                                                DialogUtils.showDialog(
+                                                    context: context,
+                                                    builder: buildContext => new DonationDialog()
+                                                );
                                             },
                                             child: new Text(S.of(context).Reward)
                                         )
@@ -65,8 +66,8 @@ namespace TerisGame
                     border: new Border(
                         top: new BorderSide(color: new Color(0xFF987f0f), width: App.SCREEN_BORDER_WIDTH),
                         left: new BorderSide(color: new Color(0xFF987f0f), width: App.SCREEN_BORDER_WIDTH),
-                        right: new BorderSide(color: new Color(0xFF987f0f), width: App.SCREEN_BORDER_WIDTH),
-                        bottom: new BorderSide(color: new Color(0xFF987f0f), width: App.SCREEN_BORDER_WIDTH)
+                        right: new BorderSide(color: new Color(0xFFfae36c), width: App.SCREEN_BORDER_WIDTH),
+                        bottom: new BorderSide(color: new Color(0xFFfae36c), width: App.SCREEN_BORDER_WIDTH)
                     )
                 ),
                 child: new Container(

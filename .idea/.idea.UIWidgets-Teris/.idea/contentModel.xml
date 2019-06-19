@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\liang\.Rider2019.1\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\liang\.Rider2019.1\system\resharper-host\local\Transient\ReSharperHost\v191\SolutionCaches\_UIWidgets-Teris.112647831.00" t="ExcludeRecursive" />
-    <e p="D:\Workspace\SikiLearn\UIWidgets-Teris" t="IncludeRecursive">
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Script" t="Include">
@@ -34,7 +32,9 @@
             <e p="StatusPanel.cs" t="Include" />
           </e>
           <e p="Utils" t="Include">
+            <e p="AudioPlayer.cs" t="Include" />
             <e p="Spacer.cs" t="Include" />
+            <e p="utils.cs" t="Include" />
           </e>
         </e>
       </e>
@@ -617,7 +617,7 @@
           </e>
         </e>
       </e>
-      <e p="Temp\bin" t="ExcludeRecursive" />
+      <e p="Temp/bin" t="ExcludeRecursive" />
       <e p="UIWidgets-Teris.sln" t="IncludeFlat" />
       <e p="UIWidgetsGallery.csproj" t="IncludeRecursive" />
       <e p="UIWidgetsGallery.Editor.csproj" t="IncludeRecursive" />
@@ -629,5 +629,7 @@
       <e p="Unity.UIWidgets.Editor.Tests.csproj" t="IncludeRecursive" />
       <e p="Unity.UIWidgets.Tests.csproj" t="IncludeRecursive" />
     </e>
+    <e p="$USER_HOME$/Library/Caches/Rider2019.1/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.1/resharper-host/local/Transient/ReSharperHost/v191/SolutionCaches/_UIWidgets-Teris.776642011.00" t="ExcludeRecursive" />
   </component>
 </project>

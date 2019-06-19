@@ -158,7 +158,7 @@ namespace TerisGame
         }
 
 
-//        private SoundState mSound => Sound.of(context);
+        private SoundState mSound => Sound.of(context);
 
 
         public void Rotate()
@@ -170,7 +170,7 @@ namespace TerisGame
                 if (next.IsValidInMatrix(mData))
                 {
                     mCurrent = next;
-//                    _sound.rotate();
+                    mSound.Rotate();
                 }
             }
 
@@ -189,7 +189,7 @@ namespace TerisGame
                 if (next.IsValidInMatrix(mData))
                 {
                     mCurrent = next;
-//                    _sound.move();
+                    mSound.Move();
                 }
             }
 
@@ -208,7 +208,7 @@ namespace TerisGame
                 if (next.IsValidInMatrix(mData))
                 {
                     mCurrent = next;
-                    //                    _sound.move();
+                    mSound.Move();
                 }
             }
 
@@ -220,7 +220,7 @@ namespace TerisGame
         {
             if (mStates == GameStates.running && mCurrent != null)
             {
-                for (int i = 0; i < GameConstants.GAME_PAD_MATRIX_H; i++)
+                for (var i = 0; i < GameConstants.GAME_PAD_MATRIX_H; i++)
                 {
                     var fall = mCurrent.Fall(i + 1);
                     if (!fall.IsValidInMatrix(mData))
@@ -228,8 +228,13 @@ namespace TerisGame
                         mCurrent = mCurrent.Fall(step: i);
                         mStates = GameStates.drop;
                         setState(() => { });
-//                        await Future.delayed(const Duration(milliseconds: 100));
-                        MixCurrentIntoData();
+                        Promise.Delayed(TimeSpan.FromMilliseconds(100))
+                            .Then(() =>
+                            {
+                                
+                                MixCurrentIntoData(mixSound:mSound.Fall);
+                                setState(() => { });
+                            });
                         break;
                     }
                 }
@@ -265,11 +270,16 @@ namespace TerisGame
 
         private Timer mAutoFallTimer = null;
 
-        void MixCurrentIntoData()
+        void MixCurrentIntoData(Action mixSound = null)
+        {
+            Window.instance.startCoroutine(DoMixCurrentIntoData(mixSound));
+        }
+        
+        IEnumerator DoMixCurrentIntoData(Action mixSound)
         {
             if (mCurrent == null)
             {
-                return;
+                yield break;
             }
 
             AutoFall(false);
@@ -283,7 +293,7 @@ namespace TerisGame
             //消除行
             var clearLines = new List<int>();
 
-            for (int i = 0; i < GameConstants.GAME_PAD_MATRIX_H; i++)
+            for (var i = 0; i < GameConstants.GAME_PAD_MATRIX_H; i++)
             {
                 if (mData[i].All(d => d == 1))
                 {
@@ -296,7 +306,7 @@ namespace TerisGame
             {
                 setState(() => mStates = GameStates.clear);
 
-//                _sound.clear();
+                mSound.Clear();
 
                 ///消除效果动画
                 for (int count = 0; count < 5; count++)
@@ -310,7 +320,8 @@ namespace TerisGame
                     });
 
                     setState(() => { });
-//                    await Future.delayed(Duration(milliseconds: 100));
+                    
+                    yield return new WaitForSeconds(0.1f);
                 }
 
                 clearLines.ForEach(line =>
@@ -327,13 +338,13 @@ namespace TerisGame
                 mPoints += clearLines.Count * mLevel * 5;
 //
 //                //up level possible when cleared
-                int level = (mCleared / 50) + GameConstants.LEVEL_MIN;
+                var level = (mCleared / 50) + GameConstants.LEVEL_MIN;
                 mLevel = level <= GameConstants.LEVEL_MAX && level > mLevel ? level : mLevel;
             }
             else
             {
                 mStates = GameStates.mixing;
-//                if (mixSound != null) mixSound();
+                if (mixSound != null) mixSound();
                 ForTable((i, j) =>
                 {
                     mMask[i][j] = mCurrent.Get(j, i) ?? mMask[i][j];
@@ -342,7 +353,9 @@ namespace TerisGame
                 });
 
                 setState(() => { });
-//                await Future.delayed(const Duration(milliseconds: 200));
+                
+                yield return new WaitForSeconds(0.2f);
+
                 ForTable((i, j) =>
                 {
                     mMask[i][j] = 0;
@@ -358,8 +371,8 @@ namespace TerisGame
             //检查游戏是否结束,即检查第一行是否有元素为1
             if (mData[0].Contains(1))
             {
-//                reset();
-                return;
+                Reset();
+                yield break;
             }
             else
             {
@@ -433,7 +446,8 @@ namespace TerisGame
                 return;
             }
 
-//            _sound.start();
+            mSound.Start();
+            
             mStates = GameStates.reset;
 
             Window.instance.startCoroutine(ResetAnimation());

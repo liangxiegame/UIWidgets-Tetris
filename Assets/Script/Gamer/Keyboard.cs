@@ -41,24 +41,30 @@ namespace TerisGame
             var game = Game.Of(context);
 
 
-            if (key == KeyCode.UpArrow)
-            {
-                game.Rotate();
-            } else if (key == KeyCode.DownArrow)
-            {
-                game.Down();
-            }else if (key == KeyCode.LeftArrow)
-            {
-                game.Left();
-            } else if (key == KeyCode.RightArrow)
-            {
-                game.Right();
-            } else if (key == KeyCode.Space)
+            if (key == KeyCode.UpArrow || key == KeyCode.W)
             {
                 game.Drop();
+            } else if (key == KeyCode.DownArrow || key == KeyCode.S)
+            {
+                game.Down();
+            }else if (key == KeyCode.LeftArrow || key == KeyCode.A)
+            {
+                game.Left();
+            } else if (key == KeyCode.RightArrow || key == KeyCode.D)
+            {
+                game.Right();
+            } else if (key == KeyCode.Space || key == KeyCode.K)
+            {
+                game.Rotate();
             } else if (key == KeyCode.P)
             {
-                
+                game.PauseOrResume();
+            } else if (key == KeyCode.LeftShift || key == KeyCode.RightShift)
+            {
+//                game.soundSwitch();
+            } else if (key == KeyCode.LeftControl || key == KeyCode.RightControl)
+            {
+                game.Reset();
             }
         }
 

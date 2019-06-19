@@ -28,33 +28,33 @@ namespace TerisGame
             // play panel need 60%
             var playerPanelWidth = Width * 0.6f;
             return
-//                new Shake(
-//                shake: GameState.Of(context).States == GameStates.drop,
-//                child: 
-            new SizedBox(
-                    height: (playerPanelWidth - 6) * 2 + 6,
-                    width: Width,
-                    child: new Container(
-                        color: App.SCREEN_BACKGROUND,
-//                        child: 
-//                        new GameMaterial(
-                            child: new BrikSize(
-                                size: PlayerPanel.GetBrikSizeForScreenWidth(playerPanelWidth),
-                                child: new Row(
-                                    children: new List<Widget>()
-                                    {
-                                        new PlayerPanel(width: playerPanelWidth),
-                                        new SizedBox(
-                                            width: Width - playerPanelWidth,
-                                            child: new StatusPanel()
-                                        )
-                                    }
+                new Shake(
+                    shake: GameState.Of(context).States == GameStates.drop,
+                    child:
+                    new SizedBox(
+                        height: (playerPanelWidth - 6) * 2 + 6,
+                        width: Width,
+                        child: new Container(
+                            color: App.SCREEN_BACKGROUND,
+                            child:
+                            new GameMaterial(
+                                child: new BrikSize(
+                                    size: PlayerPanel.GetBrikSizeForScreenWidth(playerPanelWidth),
+                                    child: new Row(
+                                        children: new List<Widget>()
+                                        {
+                                            new PlayerPanel(width: playerPanelWidth),
+                                            new SizedBox(
+                                                width: Width - playerPanelWidth,
+                                                child: new StatusPanel()
+                                            )
+                                        }
+                                    )
                                 )
-//                            )
+                            )
                         )
                     )
-//                )
-            );
+                );
         }
     }
 

@@ -69,7 +69,7 @@ namespace TerisGame
                         mainAxisSize: MainAxisSize.min,
                         children: new List<Widget>()
                         {
-//                            new IconDragon(animate:true)
+                            new IconDragon(animate: true),
                             new SizedBox(height: 16),
                             new Text("tetrix", style: new TextStyle(fontSize: 20))
                         }

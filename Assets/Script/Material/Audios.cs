@@ -1,4 +1,8 @@
+using System.Collections.Generic;
+using Unity.UIWidgets.foundation;
+using Unity.UIWidgets.ui;
 using Unity.UIWidgets.widgets;
+using UnityEngine;
 
 namespace TerisGame
 {
@@ -14,32 +18,92 @@ namespace TerisGame
             Child = child;
         }
 
-        public static string[] SOUNDS = {
-            "clean.mp3",
-            "drop.mp3",
-            "explosion.mp3",
-            "move.mp3",
-            "rotate.mp3",
-            "start.mp3"
+        public static string[] SOUNDS =
+        {
+            "clean",
+            "drop",
+            "explosion",
+            "move",
+            "rotate",
+            "start"
         };
-            
+
         public override State createState()
         {
             return new SoundState();
         }
+
+        public static SoundState of(BuildContext context)
+        {
+            var state = context.ancestorStateOfType(new TypeMatcher<SoundState>()) as SoundState;
+            D.assert(state != null, ()=>"can not find sound widght");
+            return state;
+        }
     }
 
-    class SoundState : State<Sound>
+    public class SoundState : State<Sound>
     {
+        Dictionary<string, AudioClip> mSoundIds = new Dictionary<string, AudioClip>();
+
+        private bool mMute = false;
+
+        public void Play(string name)
+        {
+            Debug.Log(name);
+            
+            AudioClip clip = null;
+
+            if (!mSoundIds.TryGetValue(name, out clip)) return;
+
+            if (clip != null && !mMute)
+            {
+                AudioPlayer.Play(clip);
+            }
+        }
+
+
+        public override void initState()
+        {
+            base.initState();
+
+            foreach (var soundName in Sound.SOUNDS)
+            {
+                Window.instance.scheduleMicrotask(() =>
+                {
+                    var clip = Resources.Load<AudioClip>($"audios/{soundName}");
+                    mSoundIds.Add(soundName, clip);
+                });
+            }
+        }
+
         public override Widget build(BuildContext context)
         {
             return widget.Child;
         }
-        
-        public void Start() {}
-        public void Clear() {}
-        public void Fall() {}
-        public void Rotate() {}
-        public void Move() {}
+
+        public void Start()
+        {
+            Play("start");
+        }
+
+        public void Clear()
+        {
+            Play("clean");
+        }
+
+        public void Fall()
+        {
+            Play("drop");
+        }
+
+        public void Rotate()
+        {
+            Play("rotate");
+        }
+
+        public void Move()
+        {
+            Play("move");
+        }
     }
 }

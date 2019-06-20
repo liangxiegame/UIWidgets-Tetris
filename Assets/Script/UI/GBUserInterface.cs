@@ -51,14 +51,22 @@ namespace TetrisApp
         {
             return new Container(
                 decoration: new BoxDecoration(
-                    border: Border.all(new Color(0xFF987f0f), width: 3.0f)
+                    border: new Border(
+                        top: new BorderSide(new Color(0xFF987f0f), width: 3.0f),
+                        left: new BorderSide(new Color(0xFF987f0f), width: 3.0f),
+                        right: new BorderSide(new Color(0xFFfae36c), width: 3.0f),
+                        bottom: new BorderSide(new Color(0xFFfae36c), width: 3.0f)
+                    )
                 ),
                 child: new Container(
-                    padding: EdgeInsets.all(3),
                     decoration: new BoxDecoration(
                         border: Border.all(Colors.black54)
                     ),
-                    child: mChild
+                    child: new Container(
+                        padding: EdgeInsets.all(3),
+                        color: AppConstants.SCREEN_BACKGROUND_COLOR,
+                        child: mChild
+                    )
                 )
             );
         }

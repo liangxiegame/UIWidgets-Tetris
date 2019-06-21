@@ -80,6 +80,14 @@ namespace TetrisApp
 
         private Timer mAutoFallTimer = null;
 
+        private Block mNext = Block.Next;
+
+        Block GetNext()
+        {
+            var next = mNext;
+            mNext = Block.Next;
+            return next;
+        }
 
         public void Reset()
         {
@@ -118,7 +126,7 @@ namespace TetrisApp
             } while (line != 0);
 
             mCurrent = null;
-            mCurrent = Block.Next;
+            GetNext();
 
             mPoints = 0;
             mLines = 0;
@@ -160,7 +168,7 @@ namespace TetrisApp
 
         public void Drop()
         {
-            if (mStates == GameStates.Running)
+            if (mStates == GameStates.Running && mCurrent != null)
             {
                 for (var i = 0; i < 20; i++)
                 {
@@ -210,7 +218,7 @@ namespace TetrisApp
             else if (enable)
             {
                 mAutoFallTimer?.cancel();
-                mCurrent = mCurrent ?? Block.Next;
+                mCurrent = mCurrent ?? GetNext();
                 mAutoFallTimer = Window.instance.periodic(TimeSpan.FromMilliseconds(800), () => { Down(); });
             }
         }
@@ -292,7 +300,7 @@ namespace TetrisApp
 
                 for (var colIndex = 0; colIndex < line.Count; colIndex++)
                 {
-                    var brickData = (mCurrent == null || mCurrent.Get(rowIndex, colIndex) != 1) ?  line[colIndex] : 1;
+                    var brickData = (mCurrent == null || mCurrent.Get(rowIndex, colIndex) != 1) ? line[colIndex] : 1;
                     lineDatas.Add(brickData);
                 }
 
@@ -307,7 +315,7 @@ namespace TetrisApp
         {
             mData = GetMixedData();
 
-            mCurrent = Block.Next;
+            GetNext();
 
             var clearLines = new List<int>();
 
@@ -338,7 +346,13 @@ namespace TetrisApp
 
             mStates = GameStates.Running;
 
-            setState(() => { });
+            mCurrent = null;
+            
+            setState(() =>
+            {
+                StartGame();
+                
+            });
         }
 
         private List<List<int>> mData = new List<List<int>>
@@ -371,6 +385,7 @@ namespace TetrisApp
                 data: GetMixedData(),
                 clearLines: mLines,
                 points: mPoints,
+                next: mNext,
                 child: widget.Child
             );
         }
@@ -381,11 +396,15 @@ namespace TetrisApp
         public int ClearLines = 0;
         public int Points     = 0;
 
-        public GameState(List<List<int>> data, int clearLines, int points, Widget child) : base(child: child)
+        public Block Next = null;
+
+        public GameState(List<List<int>> data, int clearLines, int points, Block next, Widget child) : base(
+            child: child)
         {
             Data = data;
             ClearLines = clearLines;
             Points = points;
+            Next = next;
         }
 
         public List<List<int>> Data { get; }

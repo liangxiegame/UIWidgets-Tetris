@@ -251,7 +251,7 @@ namespace TetrisApp
         {
             var oldShape = Shape;
 
-            var newShape = Utils.Create2x2List(oldShape[0].Count, oldShape.Count,
+            var newShape = Utils.Create2DList(oldShape[0].Count, oldShape.Count,
                 (rowIndex, colIndex) => oldShape[oldShape.Count - colIndex - 1][rowIndex]);
 
             var nextRowIndex = RowIndex + BLOCK_ORIGINS[Type][RotateIndex][1];

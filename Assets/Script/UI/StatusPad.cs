@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.UIWidgets.material;
 using Unity.UIWidgets.painting;
 using Unity.UIWidgets.rendering;
@@ -30,8 +31,37 @@ namespace TetrisApp
                         )),
                         new SizedBox(height: 4),
                         new Text(gameState.ClearLines.ToString()),
+                        new SizedBox(height: 10),
+                        new Text("Next:", style: new TextStyle(
+                            fontWeight: FontWeight.bold
+                        )),
+                        new SizedBox(height: 8),
+                        new NextBlock()
                     }
                 )
+            );
+        }
+    }
+
+    public class NextBlock : StatelessWidget
+    {
+        public override Widget build(BuildContext context)
+        {
+            var data = Utils.Create2DList(2, 4, (_, __) => 0);
+            var next = Block.BLOCK_SHAPES[GameState.of(context).Next.Type];
+
+            for (var i = 0; i < next.Count; i++)
+            {
+                for (var j = 0; j < next[i].Count; j++)
+                {
+                    data[i][j] = next[i][j];
+                }
+            }
+
+            return new Column(
+                children: data.Select(line => new Row(
+                    children: line.Select(b => b == 1 ? Brick.Normal() as Widget : Brick.Empty()).ToList()
+                ) as Widget).ToList()
             );
         }
     }

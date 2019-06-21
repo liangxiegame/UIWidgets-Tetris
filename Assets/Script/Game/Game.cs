@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using RSG;
+using Unity.UIWidgets.async;
 using Unity.UIWidgets.ui;
 using Unity.UIWidgets.widgets;
 using UnityEngine;
@@ -10,8 +12,39 @@ namespace TetrisApp
 {
     public enum GameStates
     {
+        /// <summary>
+        /// 未开始
+        /// </summary>
+        None,
+
+        /// <summary>
+        /// 正在进行
+        /// </summary>
         Running,
 
+        /// <summary>
+        /// 暂停
+        /// </summary>
+        Paused,
+
+        /// <summary>
+        /// 重置
+        /// </summary>
+        Reset,
+
+        /// <summary>
+        /// 合并的状态
+        /// </summary>
+        Mixing,
+
+        /// <summary>
+        /// 消除
+        /// </summary>
+        Clear,
+
+        /// <summary>
+        /// 
+        /// </summary>
         Drop
     }
 
@@ -39,18 +72,90 @@ namespace TetrisApp
     {
         private Block mCurrent;
 
-        private GameStates mStates = GameStates.Running;
+        private GameStates mStates = GameStates.None;
 
         private int mLines = 0;
 
         private int mPoints = 0;
 
-        public override void initState()
+        private Timer mAutoFallTimer = null;
+
+
+        public void Reset()
         {
-            base.initState();
+            if (mStates == GameStates.None)
+            {
+                StartGame();
+                return;
+            }
+
+            if (mStates == GameStates.Reset)
+            {
+                return;
+            }
+
+            mStates = GameStates.Reset;
+
+
+            Window.instance.startCoroutine(DoResetAnimation());
+        }
+
+        IEnumerator DoResetAnimation()
+        {
+            var line = AppConstants.GAME_PAD_10x20_H;
+
+            do
+            {
+                line--;
+                for (var i = 0; i < AppConstants.GAME_PAD_10X20_W; i++)
+                {
+                    mData[line][i] = 1;
+                }
+
+                setState(() => { });
+
+                yield return new WaitForSeconds(0.05f);
+            } while (line != 0);
+
+            mCurrent = null;
             mCurrent = Block.Next;
 
-            Window.instance.periodic(TimeSpan.FromMilliseconds(800), () => { Down(); });
+            mPoints = 0;
+            mLines = 0;
+
+            do
+            {
+                for (var i = 0; i < AppConstants.GAME_PAD_10X20_W; i++)
+                {
+                    mData[line][i] = 0;
+                }
+
+
+                setState(() => { });
+                line++;
+                yield return new WaitForSeconds(0.05f);
+            } while (line != AppConstants.GAME_PAD_10x20_H);
+
+            mStates = GameStates.None;
+        }
+
+        public void PauseOrResume()
+        {
+            if (mStates == GameStates.Running)
+            {
+                mStates = GameStates.Paused;
+            }
+            else if (mStates == GameStates.Paused)
+            {
+                mStates = GameStates.Running;
+            }
+
+            this.setState(() => { });
+        }
+
+        public void SoundSwitch()
+        {
+            Debug.Log("SoundSwitch");
         }
 
         public void Drop()
@@ -75,18 +180,54 @@ namespace TetrisApp
                     }
                 }
             }
+            else if (mStates == GameStates.Paused || mStates == GameStates.None)
+            {
+                StartGame();
+            }
+        }
+
+        void StartGame()
+        {
+            if (mStates == GameStates.Running && mAutoFallTimer == null)
+            {
+                return;
+            }
+
+            mStates = GameStates.Running;
+
+            AutoFall(true);
+
+            setState(() => { });
+        }
+
+        void AutoFall(bool enable)
+        {
+            if (!enable && mAutoFallTimer != null)
+            {
+                mAutoFallTimer?.cancel();
+                mAutoFallTimer = null;
+            }
+            else if (enable)
+            {
+                mAutoFallTimer?.cancel();
+                mCurrent = mCurrent ?? Block.Next;
+                mAutoFallTimer = Window.instance.periodic(TimeSpan.FromMilliseconds(800), () => { Down(); });
+            }
         }
 
         public void Rotate()
         {
-            var next = mCurrent.Rotate();
-
-            if (next.IsValidateInData(mData))
+            if (mStates == GameStates.Running)
             {
-                mCurrent = next;
-            }
+                var next = mCurrent.Rotate();
 
-            setState(() => { });
+                if (next.IsValidateInData(mData))
+                {
+                    mCurrent = next;
+                }
+
+                setState(() => { });
+            }
         }
 
         public void Down()
@@ -111,26 +252,32 @@ namespace TetrisApp
 
         public void Left()
         {
-            var next = mCurrent.Left();
-
-            if (next.IsValidateInData(mData))
+            if (mStates == GameStates.Running)
             {
-                mCurrent = next;
-            }
+                var next = mCurrent.Left();
 
-            setState(() => { });
+                if (next.IsValidateInData(mData))
+                {
+                    mCurrent = next;
+                }
+
+                setState(() => { });
+            }
         }
 
         public void Right()
         {
-            var next = mCurrent.Right();
-
-            if (next.IsValidateInData(mData))
+            if (mStates == GameStates.Running)
             {
-                mCurrent = next;
-            }
+                var next = mCurrent.Right();
 
-            setState(() => { });
+                if (next.IsValidateInData(mData))
+                {
+                    mCurrent = next;
+                }
+
+                setState(() => { });
+            }
         }
 
         private List<List<int>> GetMixedData()
@@ -145,7 +292,7 @@ namespace TetrisApp
 
                 for (var colIndex = 0; colIndex < line.Count; colIndex++)
                 {
-                    var brickData = mCurrent.Get(rowIndex, colIndex) == 1 ? 1 : line[colIndex];
+                    var brickData = (mCurrent == null || mCurrent.Get(rowIndex, colIndex) != 1) ?  line[colIndex] : 1;
                     lineDatas.Add(brickData);
                 }
 

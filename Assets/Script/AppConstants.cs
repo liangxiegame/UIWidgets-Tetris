@@ -28,7 +28,8 @@ namespace TetrisApp
 
         #region JOY_STICKS
 
-        public static Size DIRECTION_BUTTON_SIZE = Size.square(48);
+        public static Size DIRECTION_BUTTON_SIZE = Size.square(60);
+        public const float DIRECTION_BUTTON_SPACE = 16;
 
         #endregion
 

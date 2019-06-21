@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Unity.UIWidgets.material;
+using Unity.UIWidgets.painting;
 using Unity.UIWidgets.rendering;
 using Unity.UIWidgets.ui;
 using Unity.UIWidgets.widgets;
@@ -14,10 +16,11 @@ namespace TetrisApp
             return new SizedBox(
                 height: 200,
                 child: new Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: new List<Widget>()
                     {
-                        new Expanded(child:new LeftButtons()),
-                        new Expanded(child:new DirectionButtons())
+                        new Expanded(child: new LeftButtons()),
+                        new Expanded(child: new DirectionButtons())
                     }
                 )
             );
@@ -28,56 +31,54 @@ namespace TetrisApp
     {
         public override Widget build(BuildContext context)
         {
-            return Transform.rotate(
-                degree: Mathf.PI / 4,
-                child: new Column(
-                    children: new List<Widget>()
-                    {
-                        new Row(
-                            children: new List<Widget>()
-                            {
-                                // 
-                                new GBButton(
-                                    size: AppConstants.DIRECTION_BUTTON_SIZE,
-                                    () =>
-                                    {
-                                        Game.of(context).Drop();
-                                    }
-                                ),
-                                new GBButton(
-                                    size: AppConstants.DIRECTION_BUTTON_SIZE,
-                                    () =>
-                                    {
-                                        Game.of(context).Right();
-
-                                    }
-                                )
-                            }
-                        ),
-                        new Row(
-                            children: new List<Widget>()
-                            {
-                                new GBButton(
-                                    size: AppConstants.DIRECTION_BUTTON_SIZE,
-                                    () =>
-                                    {
-                                        Game.of(context).Left();
-                                    }
-                                ),
-                                new GBButton(
-                                    size: AppConstants.DIRECTION_BUTTON_SIZE,
-                                    () =>
-                                    {
-                                        Game.of(context).Down();
-                                    }
-                                )
-                            }
-                        )
-                    }
+            return SizedBox.fromSize(size: AppConstants.DIRECTION_BUTTON_SIZE * 2.8f,
+                child: Transform.rotate(
+                    origin: new Offset(90, 90),
+                    degree: Mathf.PI / 4,
+                    child: new Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: new List<Widget>()
+                        {
+                            new SizedBox(height: AppConstants.DIRECTION_BUTTON_SPACE),
+                            new Row(
+                                children: new List<Widget>()
+                                {
+                                    new SizedBox(width: AppConstants.DIRECTION_BUTTON_SPACE),
+                                    new GBButton(
+                                        size: AppConstants.DIRECTION_BUTTON_SIZE,
+                                        () => { Game.of(context).Drop(); }
+                                    ),
+                                    new SizedBox(width: AppConstants.DIRECTION_BUTTON_SPACE),
+                                    new GBButton(
+                                        size: AppConstants.DIRECTION_BUTTON_SIZE,
+                                        () => { Game.of(context).Right(); }
+                                    )
+                                }
+                            ),
+                            new SizedBox(height: AppConstants.DIRECTION_BUTTON_SPACE),
+                            new Row(
+                                children: new List<Widget>()
+                                {
+                                    new SizedBox(width: AppConstants.DIRECTION_BUTTON_SPACE),
+                                    new GBButton(
+                                        size: AppConstants.DIRECTION_BUTTON_SIZE,
+                                        () => { Game.of(context).Left(); }
+                                    ),
+                                    new SizedBox(width: AppConstants.DIRECTION_BUTTON_SPACE),
+                                    new GBButton(
+                                        size: AppConstants.DIRECTION_BUTTON_SIZE,
+                                        () => { Game.of(context).Down(); }
+                                    )
+                                }
+                            ),
+                            new SizedBox(height: AppConstants.DIRECTION_BUTTON_SPACE)
+                        }
+                    )
                 )
             );
         }
     }
+
 
     public class LeftButtons : StatelessWidget
     {
@@ -87,9 +88,48 @@ namespace TetrisApp
                 mainAxisSize: MainAxisSize.min,
                 children: new List<Widget>()
                 {
+                    new SystemButtonGroup(),
                     new Expanded(
                         child: new Center(
                             child: new RotateButton()
+                        )
+                    )
+                }
+            );
+        }
+    }
+
+    public class SystemButtonGroup : StatelessWidget
+    {
+        public override Widget build(BuildContext context)
+        {
+            return new Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: new List<Widget>()
+                {
+                    new Description(
+                        text: "SOUNDS",
+                        child: new GBButton(
+                            size: new Size(28, 28),
+                            () => { Game.of(context).SoundSwitch(); },
+                            enableLongPress: false
+                        )
+                    ),
+                    new Description(
+                        text: "PAUSE/RESUME",
+                        child: new GBButton(
+                            size: new Size(28, 28),
+                            () => { Game.of(context).PauseOrResume(); },
+                            enableLongPress: false
+                        )
+                    ),
+                    new Description(
+                        text: "RESET",
+                        child: new GBButton(
+                            size: new Size(28, 28),
+                            () => { Game.of(context).Reset(); },
+                            enableLongPress: false,
+                            color: Colors.red
                         )
                     )
                 }

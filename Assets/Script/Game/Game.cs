@@ -347,12 +347,8 @@ namespace TetrisApp
             mStates = GameStates.Running;
 
             mCurrent = null;
-            
-            setState(() =>
-            {
-                StartGame();
-                
-            });
+
+            setState(() => { StartGame(); });
         }
 
         private List<List<int>> mData = new List<List<int>>
@@ -383,6 +379,7 @@ namespace TetrisApp
         {
             return new GameState(
                 data: GetMixedData(),
+                states: mStates,
                 clearLines: mLines,
                 points: mPoints,
                 next: mNext,
@@ -398,13 +395,17 @@ namespace TetrisApp
 
         public Block Next = null;
 
-        public GameState(List<List<int>> data, int clearLines, int points, Block next, Widget child) : base(
+        public GameStates States;
+
+        public GameState(List<List<int>> data, GameStates states, int clearLines, int points, Block next,
+            Widget child) : base(
             child: child)
         {
             Data = data;
             ClearLines = clearLines;
             Points = points;
             Next = next;
+            States = states;
         }
 
         public List<List<int>> Data { get; }

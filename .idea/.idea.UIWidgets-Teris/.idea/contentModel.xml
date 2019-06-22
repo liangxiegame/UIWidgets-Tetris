@@ -25,6 +25,9 @@
           <e p="Input" t="Include">
             <e p="KeyboardController.cs" t="Include" />
           </e>
+          <e p="material" t="Include">
+            <e p="GameMaterial.cs" t="Include" />
+          </e>
           <e p="ui" t="Include">
             <e p="Components" t="Include">
               <e p="Description.cs" t="Include" />
@@ -34,6 +37,10 @@
             <e p="GBJoyStick.cs" t="Include" />
             <e p="GBScreen.cs" t="Include" />
             <e p="GBUserInterface.cs" t="Include" />
+            <e p="StatusIcons" t="Include">
+              <e p="_Material.cs" t="Include" />
+              <e p="IconPause.cs" t="Include" />
+            </e>
             <e p="StatusPad.cs" t="Include" />
           </e>
           <e p="utils.cs" t="Include" />

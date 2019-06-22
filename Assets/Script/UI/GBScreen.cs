@@ -31,20 +31,22 @@ namespace TetrisApp
                 height: (brick10x20width - 6) * 2 + 6,
                 child: new Container(
                     color: AppConstants.SCREEN_BACKGROUND_COLOR,
-                    child: new BrickSize(
-                        size: GetBrickSizeFromBrick10x20width(brick10x20width),
-                        child: new Row(
-                            children: new List<Widget>()
-                            {
-                                new Container(
-                                    padding: EdgeInsets.all(2),
-                                    decoration: new BoxDecoration(
-                                        border: Border.all(color: Color.black)
+                    child: new GameMaterial(
+                        child: new BrickSize(
+                            size: GetBrickSizeFromBrick10x20width(brick10x20width),
+                            child: new Row(
+                                children: new List<Widget>()
+                                {
+                                    new Container(
+                                        padding: EdgeInsets.all(2),
+                                        decoration: new BoxDecoration(
+                                            border: Border.all(color: Color.black)
+                                        ),
+                                        child: new GamePad()
                                     ),
-                                    child: new GamePad()
-                                ),
-                                new StatusPad()
-                            }
+                                    new StatusPad()
+                                }
+                            )
                         )
                     )
                 )

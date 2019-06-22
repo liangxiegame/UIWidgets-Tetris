@@ -36,7 +36,9 @@ namespace TetrisApp
                             fontWeight: FontWeight.bold
                         )),
                         new SizedBox(height: 8),
-                        new NextBlock()
+                        new NextBlock(),
+                        new Spacer(),
+                        new GameStatus()
                     }
                 )
             );
@@ -62,6 +64,27 @@ namespace TetrisApp
                 children: data.Select(line => new Row(
                     children: line.Select(b => b == 1 ? Brick.Normal() as Widget : Brick.Empty()).ToList()
                 ) as Widget).ToList()
+            );
+        }
+    }
+
+    public class GameStatus : StatefulWidget
+    {
+        public override State createState()
+        {
+            return new GameStatusState();
+        }
+    }
+
+    public class GameStatusState : State<GameStatus>
+    {
+        public override Widget build(BuildContext context)
+        {
+            return new Row(
+                children: new List<Widget>()
+                {
+                    new IconPause(GameState.of(context).States == GameStates.Paused)
+                }
             );
         }
     }

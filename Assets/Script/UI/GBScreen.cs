@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Unity.UIWidgets.painting;
+using Unity.UIWidgets.rendering;
 using Unity.UIWidgets.ui;
 using Unity.UIWidgets.widgets;
 
@@ -42,7 +43,13 @@ namespace TetrisApp
                                         decoration: new BoxDecoration(
                                             border: Border.all(color: Color.black)
                                         ),
-                                        child: new GamePad()
+                                        child: new Stack(
+                                            children: new List<Widget>()
+                                            {
+                                                new GamePad(),
+                                                new GameUninitialized()
+                                            }
+                                        )
                                     ),
                                     new StatusPad()
                                 }
@@ -51,6 +58,32 @@ namespace TetrisApp
                     )
                 )
             );
+        }
+    }
+
+    public class GameUninitialized : StatelessWidget
+    {
+        public override Widget build(BuildContext context)
+        {
+            if (GameState.of(context).States == GameStates.None)
+            {
+                return new Center(
+                    child: new Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: new List<Widget>()
+                        {
+                            new IconDragon(),
+                            new SizedBox(height: 16),
+                            new Text("tetris",
+                                style: new TextStyle(fontSize: 20))
+                        }
+                    )
+                );
+            }
+            else
+            {
+                return new Container();
+            }
         }
     }
 }

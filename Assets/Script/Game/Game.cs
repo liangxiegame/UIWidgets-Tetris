@@ -144,7 +144,7 @@ namespace TetrisApp
                 yield return new WaitForSeconds(0.05f);
             } while (line != AppConstants.GAME_PAD_10x20_H);
 
-            mStates = GameStates.None;
+            this.setState(() => { mStates = GameStates.None; });
         }
 
         public void PauseOrResume()

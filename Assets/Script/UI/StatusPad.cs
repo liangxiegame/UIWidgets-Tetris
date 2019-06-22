@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.UIWidgets.async;
 using Unity.UIWidgets.material;
 using Unity.UIWidgets.painting;
 using Unity.UIWidgets.rendering;
@@ -78,12 +80,51 @@ namespace TetrisApp
 
     public class GameStatusState : State<GameStatus>
     {
+        private Timer mTimer;
+
+        private int mHours;
+        private int mMinutes;
+        private bool mShowColon = false;
+        
+        public override void initState()
+        {
+            base.initState();
+
+            mTimer = Window.instance.periodic(TimeSpan.FromSeconds(1), () =>
+            {
+                var now = DateTime.Now;
+
+                
+                this.setState(() =>
+                {
+                    mHours = now.Hour;
+                    mMinutes = now.Minute;
+
+                    mShowColon = !mShowColon;
+                });
+            });
+        }
+
+        public override void dispose()
+        {
+            base.dispose();
+            
+            mTimer?.cancel();
+            mTimer = null;
+        }
+
         public override Widget build(BuildContext context)
         {
             return new Row(
                 children: new List<Widget>()
                 {
-                    new IconPause(GameState.of(context).States == GameStates.Paused)
+                    new IconSound(),
+                    new SizedBox(width: 4),
+                    new IconPause(GameState.of(context).States == GameStates.Paused),
+                    new SizedBox(width: 24),
+                    new Number(mHours, 2, true),
+                    new IconColon(mShowColon),
+                    new Number(mMinutes, 2, padWithZero: true)
                 }
             );
         }

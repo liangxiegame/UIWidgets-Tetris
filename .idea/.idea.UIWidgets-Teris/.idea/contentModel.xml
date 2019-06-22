@@ -30,7 +30,9 @@
           </e>
           <e p="ui" t="Include">
             <e p="Components" t="Include">
+              <e p="_Material.cs" t="Include" />
               <e p="Description.cs" t="Include" />
+              <e p="Digital.cs" t="Include" />
               <e p="GBButton.cs" t="Include" />
             </e>
             <e p="GamePad.cs" t="Include" />
@@ -38,8 +40,11 @@
             <e p="GBScreen.cs" t="Include" />
             <e p="GBUserInterface.cs" t="Include" />
             <e p="StatusIcons" t="Include">
-              <e p="_Material.cs" t="Include" />
+              <e p="IconColon.cs" t="Include" />
+              <e p="IconDragon.cs" t="Include" />
               <e p="IconPause.cs" t="Include" />
+              <e p="IconSound.cs" t="Include" />
+              <e p="Number.cs" t="Include" />
             </e>
             <e p="StatusPad.cs" t="Include" />
           </e>
@@ -404,6 +409,7 @@
               <e p="pointer.cs" t="Include" />
               <e p="text.cs" t="Include" />
               <e p="txt" t="Include">
+                <e p="emoji.cs" t="Include" />
                 <e p="layout.cs" t="Include" />
                 <e p="layout_utils.cs" t="Include" />
                 <e p="linebreaker.cs" t="Include" />

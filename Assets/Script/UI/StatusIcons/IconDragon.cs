@@ -24,7 +24,7 @@ namespace TetrisApp
         {
             base.didUpdateWidget(oldWidget);
 
-            InitAnimation();
+//            InitAnimation();
         }
 
         public override void initState()
@@ -45,6 +45,13 @@ namespace TetrisApp
 
                 this.setState(() => { mFrame++; });
             });
+        }
+
+        public override void dispose()
+        {
+            mTimer?.cancel();
+            mTimer = null;
+            base.dispose();
         }
 
         public override Widget build(BuildContext context)

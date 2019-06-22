@@ -7,6 +7,7 @@ using Unity.UIWidgets.async;
 using Unity.UIWidgets.ui;
 using Unity.UIWidgets.widgets;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace TetrisApp
 {
@@ -81,6 +82,8 @@ namespace TetrisApp
         private Timer mAutoFallTimer = null;
 
         private Block mNext = Block.Next;
+
+        private int mLevel = 1;
 
         Block GetNext()
         {
@@ -219,7 +222,7 @@ namespace TetrisApp
             {
                 mAutoFallTimer?.cancel();
                 mCurrent = mCurrent ?? GetNext();
-                mAutoFallTimer = Window.instance.periodic(TimeSpan.FromMilliseconds(800), () => { Down(); });
+                mAutoFallTimer = Window.instance.periodic(AppConstants.SPEED[mLevel - 1], () => { Down(); });
             }
         }
 
@@ -260,7 +263,7 @@ namespace TetrisApp
 
         public void Left()
         {
-            if (mStates == GameStates.Running)
+            if (mStates == GameStates.Running && mCurrent != null)
             {
                 var next = mCurrent.Left();
 
@@ -269,13 +272,17 @@ namespace TetrisApp
                     mCurrent = next;
                 }
 
-                setState(() => { });
+            } else if (mStates == GameStates.None && mLevel > 1)
+            {
+                mLevel--;
             }
+            
+            setState(() => { });
         }
 
         public void Right()
         {
-            if (mStates == GameStates.Running)
+            if (mStates == GameStates.Running && mCurrent != null)
             {
                 var next = mCurrent.Right();
 
@@ -284,8 +291,11 @@ namespace TetrisApp
                     mCurrent = next;
                 }
 
-                setState(() => { });
+            } else if (mStates == GameStates.None && mLevel < 6)
+            {
+                mLevel++;
             }
+            setState(() => { });
         }
 
         private List<List<int>> GetMixedData()
@@ -348,7 +358,14 @@ namespace TetrisApp
 
             mCurrent = null;
 
-            setState(() => { StartGame(); });
+            if (mData[0].Contains(1))
+            {
+                Reset();
+            }
+            else
+            {
+                StartGame();
+            }
         }
 
         private List<List<int>> mData = new List<List<int>>
@@ -379,6 +396,7 @@ namespace TetrisApp
         {
             return new GameState(
                 data: GetMixedData(),
+                level:mLevel,
                 states: mStates,
                 clearLines: mLines,
                 points: mPoints,
@@ -397,7 +415,9 @@ namespace TetrisApp
 
         public GameStates States;
 
-        public GameState(List<List<int>> data, GameStates states, int clearLines, int points, Block next,
+        public int Level = 1;
+
+        public GameState(List<List<int>> data,int level, GameStates states, int clearLines, int points, Block next,
             Widget child) : base(
             child: child)
         {
@@ -406,6 +426,7 @@ namespace TetrisApp
             Points = points;
             Next = next;
             States = states;
+            Level = level;
         }
 
         public List<List<int>> Data { get; }

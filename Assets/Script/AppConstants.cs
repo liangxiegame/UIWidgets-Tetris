@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Unity.UIWidgets.material;
 using Unity.UIWidgets.ui;
 
@@ -28,11 +30,27 @@ namespace TetrisApp
 
         #region JOY_STICKS
 
-        public static Size DIRECTION_BUTTON_SIZE = Size.square(60);
-        public const float DIRECTION_BUTTON_SPACE = 16;
+        public static Size  DIRECTION_BUTTON_SIZE  = Size.square(60);
+        public const  float DIRECTION_BUTTON_SPACE = 16;
 
         #endregion
 
         public const int PLAYPER_PANEL_PADDING = 6;
+
+
+        #region GAME
+
+
+        public static TimeSpan[] SPEED = new[]
+        {
+            TimeSpan.FromMilliseconds(800),
+            TimeSpan.FromMilliseconds(650),
+            TimeSpan.FromMilliseconds(500),
+            TimeSpan.FromMilliseconds(370),
+            TimeSpan.FromMilliseconds(250),
+            TimeSpan.FromMilliseconds(160)
+        };
+
+        #endregion
     }
 }

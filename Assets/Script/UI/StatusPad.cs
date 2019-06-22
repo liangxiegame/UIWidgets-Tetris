@@ -26,13 +26,19 @@ namespace TetrisApp
                             fontWeight: FontWeight.bold
                         )),
                         new SizedBox(height: 4),
-                        new Text(gameState.Points.ToString()),
+                        new Number(gameState.Points),
                         new SizedBox(height: 4),
                         new Text("Clears:", style: new TextStyle(
                             fontWeight: FontWeight.bold
                         )),
                         new SizedBox(height: 4),
-                        new Text(gameState.ClearLines.ToString()),
+                        new Number(gameState.ClearLines),
+                        new SizedBox(height: 4),
+                        new Text("Level:", style: new TextStyle(
+                            fontWeight: FontWeight.bold
+                        )),
+                        new SizedBox(height: 4),
+                        new Number(gameState.Level),
                         new SizedBox(height: 10),
                         new Text("Next:", style: new TextStyle(
                             fontWeight: FontWeight.bold

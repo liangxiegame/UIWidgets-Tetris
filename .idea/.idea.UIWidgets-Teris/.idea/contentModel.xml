@@ -48,7 +48,10 @@
             </e>
             <e p="StatusPad.cs" t="Include" />
           </e>
-          <e p="utils.cs" t="Include" />
+          <e p="Utils" t="Include">
+            <e p="AudioPlayer.cs" t="Include" />
+            <e p="utils.cs" t="Include" />
+          </e>
         </e>
       </e>
       <e p="obj" t="ExcludeRecursive" />

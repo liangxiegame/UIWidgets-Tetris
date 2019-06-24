@@ -123,6 +123,7 @@ namespace TetrisApp
 
             mStates = GameStates.Reset;
 
+            AudioPlayer.Start();
 
             Window.instance.startCoroutine(DoResetAnimation());
         }
@@ -182,7 +183,8 @@ namespace TetrisApp
 
         public void SoundSwitch()
         {
-            Debug.Log("SoundSwitch");
+            AudioPlayer.Mute = !AudioPlayer.Mute;
+            setState(() => { });
         }
 
         public void Drop()
@@ -201,7 +203,11 @@ namespace TetrisApp
                         mStates = GameStates.Drop;
 
                         Promise.Delayed(TimeSpan.FromMilliseconds(100))
-                            .Then(() => { MixCurrentBlockIntoData(); });
+                            .Then(() =>
+                            {
+                                MixCurrentBlockIntoData(mixSound: AudioPlayer.Drop);
+                                setState(() => { });
+                            });
 
                         break;
                     }
@@ -238,7 +244,8 @@ namespace TetrisApp
             {
                 mAutoFallTimer?.cancel();
                 mCurrent = mCurrent ?? GetNext();
-                mAutoFallTimer = Window.instance.periodic(AppConstants.SPEED[mLevel - 1], () => { Down(); });
+                mAutoFallTimer =
+                    Window.instance.periodic(AppConstants.SPEED[mLevel - 1], () => { Down(enableSounds: false); });
             }
         }
 
@@ -251,13 +258,14 @@ namespace TetrisApp
                 if (next.IsValidateInData(mData))
                 {
                     mCurrent = next;
+                    AudioPlayer.Rotate();
                 }
 
                 setState(() => { });
             }
         }
 
-        public void Down()
+        public void Down(bool enableSounds = true)
         {
             if (mStates == GameStates.Running)
             {
@@ -266,6 +274,10 @@ namespace TetrisApp
                 if (next.IsValidateInData(mData))
                 {
                     mCurrent = next;
+                    if (enableSounds)
+                    {
+                        AudioPlayer.Move();
+                    }
                 }
                 else
                 {
@@ -286,6 +298,7 @@ namespace TetrisApp
                 if (next.IsValidateInData(mData))
                 {
                     mCurrent = next;
+                    AudioPlayer.Move();
                 }
             }
             else if (mStates == GameStates.None && mLevel > 1)
@@ -305,6 +318,7 @@ namespace TetrisApp
                 if (next.IsValidateInData(mData))
                 {
                     mCurrent = next;
+                    AudioPlayer.Move();
                 }
             }
             else if (mStates == GameStates.None && mLevel < 6)
@@ -348,17 +362,17 @@ namespace TetrisApp
         }
 
 
-        void MixCurrentBlockIntoData()
+        void MixCurrentBlockIntoData(Action mixSound = null)
         {
             if (mCurrent == null)
             {
                 return;
             }
 
-            Window.instance.startCoroutine(DoMixCurrentBlockIntoData());
+            Window.instance.startCoroutine(DoMixCurrentBlockIntoData(mixSound));
         }
 
-        IEnumerator DoMixCurrentBlockIntoData()
+        IEnumerator DoMixCurrentBlockIntoData(Action mixSound)
         {
             mData.ForEachTable((rowIndex, colIndex) =>
                 mCurrent.Get(rowIndex, colIndex) != 1 ? mData[rowIndex][colIndex] : 1);
@@ -380,6 +394,8 @@ namespace TetrisApp
                 // 进行消除操作
                 setState(() => { mStates = GameStates.Clear; });
 
+                AudioPlayer.Clean();
+
                 for (var i = 0; i < 5; i++)
                 {
                     clearLines.ForEach(line =>
@@ -396,7 +412,7 @@ namespace TetrisApp
 
                 clearLines.ForEach(line =>
                     mMask[line] = Utils.CreateFilledList(AppConstants.GAME_PAD_10X20_W, _ => 0));
-                
+
                 clearLines.ForEach(line =>
                 {
                     mData.RemoveAt(line);
@@ -410,6 +426,8 @@ namespace TetrisApp
             }
             else
             {
+                mixSound?.Invoke();
+
                 mMask.ForEachTable((rowIndex, colIndex) => 0);
 
                 setState(() => { });
@@ -439,6 +457,7 @@ namespace TetrisApp
                 data: GetMixedData(),
                 level: mLevel,
                 states: mStates,
+                muted: AudioPlayer.Mute,
                 clearLines: mLines,
                 points: mPoints,
                 next: mNext,
@@ -458,7 +477,10 @@ namespace TetrisApp
 
         public int Level = 1;
 
-        public GameState(List<List<int>> data, int level, GameStates states, int clearLines, int points, Block next,
+        public bool Muted = false;
+
+        public GameState(List<List<int>> data, int level, GameStates states, bool muted, int clearLines, int points,
+            Block next,
             Widget child) : base(
             child: child)
         {
@@ -468,6 +490,7 @@ namespace TetrisApp
             Next = next;
             States = states;
             Level = level;
+            Muted = muted;
         }
 
         public List<List<int>> Data { get; }

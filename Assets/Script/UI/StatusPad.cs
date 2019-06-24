@@ -88,10 +88,10 @@ namespace TetrisApp
     {
         private Timer mTimer;
 
-        private int mHours;
-        private int mMinutes;
+        private int  mHours;
+        private int  mMinutes;
         private bool mShowColon = false;
-        
+
         public override void initState()
         {
             base.initState();
@@ -100,7 +100,7 @@ namespace TetrisApp
             {
                 var now = DateTime.Now;
 
-                
+
                 this.setState(() =>
                 {
                     mHours = now.Hour;
@@ -114,19 +114,20 @@ namespace TetrisApp
         public override void dispose()
         {
             base.dispose();
-            
+
             mTimer?.cancel();
             mTimer = null;
         }
 
         public override Widget build(BuildContext context)
         {
+            var gameState = GameState.of(context);
             return new Row(
                 children: new List<Widget>()
                 {
-                    new IconSound(),
+                    new IconSound(gameState.Muted),
                     new SizedBox(width: 4),
-                    new IconPause(GameState.of(context).States == GameStates.Paused),
+                    new IconPause(gameState.States == GameStates.Paused),
                     new SizedBox(width: 24),
                     new Number(mHours, 2, true),
                     new IconColon(mShowColon),

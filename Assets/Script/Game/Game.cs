@@ -7,7 +7,6 @@ using Unity.UIWidgets.async;
 using Unity.UIWidgets.ui;
 using Unity.UIWidgets.widgets;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace TetrisApp
 {
@@ -84,6 +83,23 @@ namespace TetrisApp
         private Block mNext = Block.Next;
 
         private int mLevel = 1;
+
+        // 在 build 中与 mData 混合，形成一个新的矩阵。
+        // mMask 的宽高与 mData 的一致。
+        // 对于任意 mMask[x,y]:
+        //    如果为 -1, Data 中的该行不显示
+        //    如果为 1,Data 中的该行高亮
+        //    如果我 0,Data 中没什么影响
+        private List<List<int>> mMask = new List<List<int>>();
+
+        public GameController()
+        {
+            for (var i = 0; i < AppConstants.GAME_PAD_10x20_H; i++)
+            {
+                mMask.Add(Utils.CreateFilledList(AppConstants.GAME_PAD_10X20_W, index => 0));
+                mData.Add(Utils.CreateFilledList(AppConstants.GAME_PAD_10X20_W, index => 0));
+            }
+        }
 
         Block GetNext()
         {
@@ -271,12 +287,12 @@ namespace TetrisApp
                 {
                     mCurrent = next;
                 }
-
-            } else if (mStates == GameStates.None && mLevel > 1)
+            }
+            else if (mStates == GameStates.None && mLevel > 1)
             {
                 mLevel--;
             }
-            
+
             setState(() => { });
         }
 
@@ -290,11 +306,12 @@ namespace TetrisApp
                 {
                     mCurrent = next;
                 }
-
-            } else if (mStates == GameStates.None && mLevel < 6)
+            }
+            else if (mStates == GameStates.None && mLevel < 6)
             {
                 mLevel++;
             }
+
             setState(() => { });
         }
 
@@ -302,15 +319,25 @@ namespace TetrisApp
         {
             var mixed = new List<List<int>>();
 
-            for (var rowIndex = 0; rowIndex < mData.Count; rowIndex++)
+            for (var rowIndex = 0; rowIndex < AppConstants.GAME_PAD_10x20_H; rowIndex++)
             {
                 var line = mData[rowIndex];
 
                 var lineDatas = new List<int>();
 
-                for (var colIndex = 0; colIndex < line.Count; colIndex++)
+                for (var colIndex = 0; colIndex < AppConstants.GAME_PAD_10X20_W; colIndex++)
                 {
-                    var brickData = (mCurrent == null || mCurrent.Get(rowIndex, colIndex) != 1) ? line[colIndex] : 1;
+                    var brickData = mCurrent == null || mCurrent.Get(rowIndex, colIndex) != 1 ? line[colIndex] : 1;
+
+                    if (mMask[rowIndex][colIndex] == -1)
+                    {
+                        brickData = 0;
+                    }
+                    else if (mMask[rowIndex][colIndex] == 1)
+                    {
+                        brickData = 2;
+                    }
+
                     lineDatas.Add(brickData);
                 }
 
@@ -323,7 +350,18 @@ namespace TetrisApp
 
         void MixCurrentBlockIntoData()
         {
-            mData = GetMixedData();
+            if (mCurrent == null)
+            {
+                return;
+            }
+
+            Window.instance.startCoroutine(DoMixCurrentBlockIntoData());
+        }
+
+        IEnumerator DoMixCurrentBlockIntoData()
+        {
+            mData.ForEachTable((rowIndex, colIndex) =>
+                mCurrent.Get(rowIndex, colIndex) != 1 ? mData[rowIndex][colIndex] : 1);
 
             GetNext();
 
@@ -340,18 +378,41 @@ namespace TetrisApp
             if (clearLines.Count > 0)
             {
                 // 进行消除操作
-                Debug.Log("进行消除操作");
+                setState(() => { mStates = GameStates.Clear; });
 
-                clearLines.Reverse();
+                for (var i = 0; i < 5; i++)
+                {
+                    clearLines.ForEach(line =>
+                    {
+                        Debug.Log(line);
+                        mMask[line] = Utils.CreateFilledList(AppConstants.GAME_PAD_10X20_W,
+                            index => i % 2 == 0 ? -1 : 1);
+                    });
 
-                clearLines.ForEach(lineIndex => mData.RemoveAt(lineIndex));
+                    setState(() => { });
 
-                clearLines.ForEach(__ => mData.Insert(0, Enumerable.Range(0, 10).Select(_ => 0).ToList()));
+                    yield return new WaitForSeconds(0.1f);
+                }
+
+                clearLines.ForEach(line =>
+                    mMask[line] = Utils.CreateFilledList(AppConstants.GAME_PAD_10X20_W, _ => 0));
+                
+                clearLines.ForEach(line =>
+                {
+                    mData.RemoveAt(line);
+                    mData.Insert(0, Utils.CreateFilledList(AppConstants.GAME_PAD_10X20_W, _ => 0));
+                });
 
                 mLines += clearLines.Count;
                 mPoints += Rules.PointsForClearLines(clearLines.Count);
 
                 Debug.Log($"Lines:{mLines} Points:{mPoints}");
+            }
+            else
+            {
+                mMask.ForEachTable((rowIndex, colIndex) => 0);
+
+                setState(() => { });
             }
 
             mStates = GameStates.Running;
@@ -360,43 +421,23 @@ namespace TetrisApp
 
             if (mData[0].Contains(1))
             {
+                Debug.Log("Reset");
                 Reset();
             }
             else
             {
+                Debug.Log("StartGame");
                 StartGame();
             }
         }
 
-        private List<List<int>> mData = new List<List<int>>
-        {
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 0
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 1
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 2
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 3
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 4
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-        };
+        private List<List<int>> mData = new List<List<int>>();
 
         public override Widget build(BuildContext context)
         {
             return new GameState(
                 data: GetMixedData(),
-                level:mLevel,
+                level: mLevel,
                 states: mStates,
                 clearLines: mLines,
                 points: mPoints,
@@ -417,7 +458,7 @@ namespace TetrisApp
 
         public int Level = 1;
 
-        public GameState(List<List<int>> data,int level, GameStates states, int clearLines, int points, Block next,
+        public GameState(List<List<int>> data, int level, GameStates states, int clearLines, int points, Block next,
             Widget child) : base(
             child: child)
         {

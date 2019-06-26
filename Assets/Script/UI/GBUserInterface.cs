@@ -3,6 +3,7 @@ using Unity.UIWidgets.material;
 using Unity.UIWidgets.painting;
 using Unity.UIWidgets.ui;
 using Unity.UIWidgets.widgets;
+using DialogUtils = Unity.UIWidgets.material.DialogUtils;
 
 namespace TetrisApp
 {
@@ -24,6 +25,20 @@ namespace TetrisApp
                                 child: new Column(
                                     children: new List<Widget>
                                     {
+                                        new Row(
+                                            children: new List<Widget>()
+                                            {
+                                                new Spacer(),
+                                                new FlatButton(
+                                                    onPressed: () =>
+                                                    {
+                                                        DialogUtils.showDialog(context,
+                                                            builder: ctx => new DonationDialog());
+                                                    },
+                                                    child: new Text("REWARD")
+                                                )
+                                            }
+                                        ),
                                         new Spacer(),
                                         new ScreenDecoration(child: new GBScreen(width: screenWidth)),
                                         new Spacer(flex: 2),

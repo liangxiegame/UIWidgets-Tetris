@@ -4,6 +4,7 @@ using Unity.UIWidgets.foundation;
 using Unity.UIWidgets.material;
 using Unity.UIWidgets.ui;
 using Unity.UIWidgets.widgets;
+using UnityEngine;
 
 namespace TerisGame
 {
@@ -17,14 +18,14 @@ namespace TerisGame
             return Localizations.of<S>(context, typeof(MaterialLocalizations));
         }
 
-        public virtual string Cleans      => "Cleans";
-        public virtual string Level       => "Level";
-        public virtual string Next        => "Next";
+        public virtual string Cleans => "Cleans";
+        public virtual string Level => "Level";
+        public virtual string Next => "Next";
         public virtual string PauseResume => "PAUSE/RESUME";
-        public virtual string Points      => "Points";
-        public virtual string Reset       => "RESET";
-        public virtual string Reward      => "Reward";
-        public virtual string Sounds      => "SOUNDS";
+        public virtual string Points => "Points";
+        public virtual string Reset => "RESET";
+        public virtual string Reward => "Reward";
+        public virtual string Sounds => "SOUNDS";
     }
 
     public class en : S
@@ -33,80 +34,42 @@ namespace TerisGame
 
     public class zh_CN : S
     {
-        public override string Next        => "下一个";
-        public override string Reward      => "赞赏";
-        public override string Sounds      => "声音";
+        public override string Next => "下一个";
+        public override string Reward => "赞赏";
+        public override string Sounds => "声音";
         public override string PauseResume => "暂停/恢复";
-        public override string Level       => "级别";
-        public override string Reset       => "重置";
-        public override string Cleans      => "消除";
-        public override string Points      => "分数";
+        public override string Level => "级别";
+        public override string Reset => "重置";
+        public override string Cleans => "消除";
+        public override string Points => "分数";
     }
-    
-    
+
+
     public class GeneratedLocalizationsDelegate : LocalizationsDelegate<MaterialLocalizations>
     {
         public List<Locale> SupportedLocales =>
             new List<Locale>()
             {
-                new Locale("en", ""),
-                new Locale("zh", "CN")
+                new Locale("zh", "CN"),
+                new Locale("en", "US")
             };
-
-
-        public LocaleListResolutionCallback ListResolution(Locale fallback)
-        {
-            return (locales, supported) =>
-            {
-                if (locales == null || locales.isEmpty())
-                {
-                    return fallback ?? supported.first();
-                }
-                else
-                {
-                    return Resolve(locales.first(), fallback, supported);
-                }
-            };
-        }
-
-        public LocaleResolutionCallback Resolution(Locale fallback)
-        {
-            return (locale, supported) => { return Resolve(locale, fallback, supported); };
-        }
-
-        public Locale Resolve(Locale locale, Locale fallback, List<Locale> supported)
-        {
-            if (locale == null && !isSupported(locale))
-            {
-                return fallback ?? supported.first();
-            }
-
-            var languageLocale = new Locale(locale.languageCode, "");
-            if (supported.Contains(locale))
-            {
-                return locale;
-            }
-            else if (supported.Contains(languageLocale))
-            {
-                return languageLocale;
-            }
-            else
-            {
-                Locale fallbackLocale = fallback ?? supported.first();
-                return fallbackLocale;
-            }
-        }
 
 
         public override IPromise<object> load(Locale locale)
         {
             var lang = GetLang(locale);
+
+            if (Application.systemLanguage == SystemLanguage.Chinese ||
+                Application.systemLanguage == SystemLanguage.ChineseSimplified)
+            {
+                lang = "zh_CN";
+            }
+
             if (lang != null)
             {
                 switch (lang)
                 {
-                    case "en":
-
+                    case "en_US":
                         return new Promise<object>((action, action1) => action(new en()));
                     case "zh_CN":
                         return new Promise<object>((action, action1) => action(new zh_CN()));

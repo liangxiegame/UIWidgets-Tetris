@@ -25,6 +25,12 @@
           <e p="Input" t="Include">
             <e p="KeyboardController.cs" t="Include" />
           </e>
+          <e p="Localize" t="Include">
+            <e p="CustomLocalizationsDelegete.cs" t="Include" />
+            <e p="en_US.cs" t="Include" />
+            <e p="L.cs" t="Include" />
+            <e p="zh_CN.cs" t="Include" />
+          </e>
           <e p="material" t="Include">
             <e p="GameMaterial.cs" t="Include" />
           </e>
@@ -445,6 +451,7 @@
               <e p="dismissible.cs" t="Include" />
               <e p="drag_target.cs" t="Include" />
               <e p="editable_text.cs" t="Include" />
+              <e p="fade_in_image.cs" t="Include" />
               <e p="focus_manager.cs" t="Include" />
               <e p="focus_scope.cs" t="Include" />
               <e p="form.cs" t="Include" />

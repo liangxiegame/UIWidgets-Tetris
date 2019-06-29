@@ -22,25 +22,25 @@ namespace TetrisApp
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: new List<Widget>()
                     {
-                        new Text("Points:", style: new TextStyle(
+                        new Text(L.of(context).Points + ":", style: new TextStyle(
                             fontWeight: FontWeight.bold
                         )),
                         new SizedBox(height: 4),
                         new Number(gameState.Points),
                         new SizedBox(height: 4),
-                        new Text("Clears:", style: new TextStyle(
+                        new Text(L.of(context).Clears + ":", style: new TextStyle(
                             fontWeight: FontWeight.bold
                         )),
                         new SizedBox(height: 4),
                         new Number(gameState.ClearLines),
                         new SizedBox(height: 4),
-                        new Text("Level:", style: new TextStyle(
+                        new Text(L.of(context).Level + ":", style: new TextStyle(
                             fontWeight: FontWeight.bold
                         )),
                         new SizedBox(height: 4),
                         new Number(gameState.Level),
                         new SizedBox(height: 10),
-                        new Text("Next:", style: new TextStyle(
+                        new Text(L.of(context).Next + ":", style: new TextStyle(
                             fontWeight: FontWeight.bold
                         )),
                         new SizedBox(height: 8),

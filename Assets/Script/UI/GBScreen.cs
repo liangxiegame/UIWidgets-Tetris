@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.UIWidgets.material;
 using Unity.UIWidgets.painting;
 using Unity.UIWidgets.rendering;
 using Unity.UIWidgets.ui;
@@ -47,7 +48,10 @@ namespace TetrisApp
                                             children: new List<Widget>()
                                             {
                                                 new GamePad(),
-                                                new GameUninitialized()
+                                                new Container(
+                                                    width: GetBrickSizeFromBrick10x20width(brick10x20width).width * 10 - 4,
+                                                    child: new GameUninitialized()
+                                                )
                                             }
                                         )
                                     ),
@@ -74,7 +78,7 @@ namespace TetrisApp
                         {
                             new IconDragon(),
                             new SizedBox(height: 16),
-                            new Text("tetris",
+                            new Text(L.of(context).Title,
                                 style: new TextStyle(fontSize: 20))
                         }
                     )

@@ -108,7 +108,7 @@ namespace TetrisApp
                 children: new List<Widget>()
                 {
                     new Description(
-                        text: "SOUNDS",
+                        text: L.of(context).Sounds,
                         child: new GBButton(
                             size: new Size(28, 28),
                             () => { Game.of(context).SoundSwitch(); },
@@ -116,7 +116,7 @@ namespace TetrisApp
                         )
                     ),
                     new Description(
-                        text: "PAUSE/RESUME",
+                        text: L.of(context).PauseOrResume,
                         child: new GBButton(
                             size: new Size(28, 28),
                             () => { Game.of(context).PauseOrResume(); },
@@ -124,7 +124,7 @@ namespace TetrisApp
                         )
                     ),
                     new Description(
-                        text: "RESET",
+                        text: L.of(context).Reset,
                         child: new GBButton(
                             size: new Size(28, 28),
                             () => { Game.of(context).Reset(); },

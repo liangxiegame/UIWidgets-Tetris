@@ -35,7 +35,7 @@ namespace TetrisApp
                                                         DialogUtils.showDialog(context,
                                                             builder: ctx => new DonationDialog());
                                                     },
-                                                    child: new Text("REWARD")
+                                                    child: new Text(L.of(context).Reward)
                                                 )
                                             }
                                         ),

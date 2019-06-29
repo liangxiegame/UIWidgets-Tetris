@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using Unity.UIWidgets.engine;
 using Unity.UIWidgets.material;
-using Unity.UIWidgets.painting;
 using Unity.UIWidgets.ui;
 using Unity.UIWidgets.widgets;
-using UnityEngine;
 
 namespace TetrisApp
 {
@@ -13,7 +11,18 @@ namespace TetrisApp
         protected override Widget createWidget()
         {
             return new MaterialApp(
-                home: new Scaffold(
+                localizationsDelegates: new List<LocalizationsDelegate<MaterialLocalizations>>()
+                {
+                    CustomLocalizationsDelegete.del,
+                    DefaultMaterialLocalizations.del
+                },
+                supportedLocales: new List<Locale>()
+                {
+                    new Locale("zh", "CN"),
+                    new Locale("en", "US")
+                },
+                home:
+                new Scaffold(
                     body: new GBUserInterface()
                 )
             );
